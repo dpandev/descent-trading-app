@@ -5,22 +5,19 @@ import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { RootStackParamList } from '../types';
 
-export default function ModalScreen({
+export default function SettingsScreen({
   navigation
 }: StackScreenProps<RootStackParamList>) {
-  const onPress = () => {
-    navigation.goBack()
-  }
 
   return (
-    <Pressable style={styles.container} onPress={onPress}>
-      <Text style={styles.title}>Modal</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Settings</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/ModalScreen.tsx" />
+      <EditScreenInfo path="/screens/SettingsScreen.tsx" />
 
       {/* Use a light status bar on iOS to account for the black space above the modal */}
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
-    </Pressable>
+    </View>
   );
 }
 
