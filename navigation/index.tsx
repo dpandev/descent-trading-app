@@ -15,13 +15,12 @@ import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
-import TabThreeScreen from '../screens/TabThreeScreen';
-import TabFourScreen from '../screens/ProfileScreen';
+import TabOneScreen from '../screens/tabs/TabOneScreen';
+import TabTwoScreen from '../screens/tabs/TabTwoScreen';
+import TabThreeScreen from '../screens/tabs/TabThreeScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
-import TabFourStack from './TabFourStack';
+import TabFourScreen from '../screens/tabs/TabFourScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -81,12 +80,12 @@ function BottomTabNavigator() {
         tabBarActiveTintColor: Colors[colorScheme].tint,
         tabBarStyle: { 
           backgroundColor: Colors[colorScheme].primary, 
-          height: 60,
+          height: 80,
         },
         tabBarShowLabel: false,
         headerStyle: { backgroundColor: Colors[colorScheme].primary, },
         headerTitleAlign: 'center',
-        // headerShown: false,
+        headerShown: false,
       }}>
       <BottomTab.Screen
         name="TabOne"
@@ -114,7 +113,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="TabFour"
-        component={TabFourStack}
+        component={TabFourScreen}
         options={({navigation}: RootTabScreenProps<'TabFour'>) => ({
           title: 'Social',
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-person" color={color} />,
@@ -143,6 +142,7 @@ function BottomTabNavigator() {
               />
             </Pressable>
           ),
+          headerShown: true,
         })}
       />
     </BottomTab.Navigator>

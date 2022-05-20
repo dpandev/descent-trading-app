@@ -1,13 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack'
-import { RootStackParamList } from '../types';
-import ProfileScreen from '../screens/ProfileScreen';
-import FollowersScreen from '../screens/FollowersScreen';
+import { RootStackParamList } from '../../types';
+import ProfileScreen from '../ProfileScreen';
+import FollowersScreen from '../FollowersScreen';
 import React, { useState } from 'react';
-import { Text, View, ScrollView, ModifiedButton } from '../components/Themed';
+import { Text, View, ScrollView, ModifiedButton } from '../../components/Themed';
 
-export default function TabFourStack({
+export default function TabFourScreen({
   navigation
 }: StackScreenProps<RootStackParamList>) {
   const [topButton, setTopButton] = useState('profile')
@@ -28,14 +28,14 @@ export default function TabFourStack({
           buttonStyles={styles.topButton}
         />
         <ModifiedButton
-          active={topButton === 'friends'}
-          text='Friends' 
-          onPress={() => handleTopButton('friends')} 
+          active={topButton === 'following'}
+          text='Following' 
+          onPress={() => handleTopButton('following')} 
           textStyles={styles.topButtonText}
           buttonStyles={styles.topButton}
         />
       </View>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         {topButton === 'profile'
           ? <ProfileScreen />
           : <FollowersScreen />

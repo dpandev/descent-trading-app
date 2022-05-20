@@ -21,5 +21,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 15,
   },
-  recentTrades: {},
+  recentTrades: {
+    maxWidth: 400,
+  },
 });

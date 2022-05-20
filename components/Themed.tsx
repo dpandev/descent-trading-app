@@ -57,7 +57,7 @@ export function ScrollView(props: ScrollViewProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
   const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
 
-  return <DefaultScrollView style={[{ backgroundColor }, style]} {...otherProps} />;
+  return <DefaultScrollView contentContainerStyle={[{ backgroundColor }, style]} {...otherProps} />;
 }
 
 export function Button(props: ButtonProps) {
@@ -69,14 +69,69 @@ export function Button(props: ButtonProps) {
 
 export function ModifiedButton(props: ModifiedButtonProps) {
   const { active, textStyles, buttonStyles, lightColor, darkColor, ...otherProps } = props;
-  const txtStyle = {...textStyles, color: useThemeColor({ light: lightColor, dark: darkColor }, 'text')}
+  const txtStyle = { 
+    color: useThemeColor({ light: lightColor, dark: darkColor }, 'text'),
+    fontWeight: 'bold',
+    letterSpacing: 0.45,
+    ...(textStyles ? textStyles : {}) 
+  }
   const btnStyle = {
-    ...buttonStyles,
     backgroundColor: useThemeColor({ light: lightColor, dark: darkColor }, 
       active ? 'secondary' : 'primary'),
     borderColor: useThemeColor({ light: lightColor, dark: darkColor }, 
       active ? 'secondary' : 'primary'),
+    alignItems: 'center',
+    paddingVertical: 15,
+    marginVertical: 25,
+    marginHorizontal: 10,
+    borderRadius: 50,
+    width: '35%',
+    borderWidth: 1,
+    ...(buttonStyles ? buttonStyles : {})
   }
 
   return <CustomButton active={active} textStyles={txtStyle} buttonStyles={btnStyle} {...otherProps} />;
 }
+
+export function FollowButton(props: ModifiedButtonProps) {
+  const { active, textStyles, buttonStyles, lightColor, darkColor, ...otherProps } = props;
+  const txtStyle = { 
+    color: useThemeColor({ light: lightColor, dark: darkColor }, 'text'),
+    ...(textStyles ? textStyles : {}) 
+  }
+  const btnStyle = {
+    backgroundColor: useThemeColor({ light: lightColor, dark: darkColor }, 
+      active ? 'secondary' : 'primary'),
+    borderColor: useThemeColor({ light: lightColor, dark: darkColor }, 
+      active ? 'secondary' : 'primary'),
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 6,
+    ...(buttonStyles ? buttonStyles : {})
+  }
+
+  return <CustomButton active={active} textStyles={txtStyle} buttonStyles={btnStyle} {...otherProps} />;
+}
+
+// export function SimpleButton(props: ModifiedButtonProps) {
+//   const { active, textStyles, buttonStyles, lightColor, darkColor, ...otherProps } = props;
+//   const txtStyle = { 
+//     color: useThemeColor({ light: lightColor, dark: darkColor }, 'text'),
+//     ...(textStyles ? textStyles : {})
+//   }
+//   const btnStyle = {
+//     backgroundColor: useThemeColor({ light: lightColor, dark: darkColor }, 'primary'),
+//     borderColor: useThemeColor({ light: lightColor, dark: darkColor }, 'primary'),
+//     ...(buttonStyles ? buttonStyles : {})
+//   }
+
+//   const btnActive = {
+//     backgroundColor: useThemeColor({ light: lightColor, dark: darkColor }, 'secondary'),
+//     borderColor: useThemeColor({ light: lightColor, dark: darkColor }, 'secondary'),
+//     ...(buttonStyles ? buttonStyles : {})
+//   }
+
+//   const finalBtnStyle = active ? btnActive : btnStyle
+
+//   return <CustomButton active={active} textStyles={txtStyle} buttonStyles={finalBtnStyle} {...otherProps} />;
+// }

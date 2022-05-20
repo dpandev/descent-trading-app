@@ -1,28 +1,24 @@
 import { View, Text } from '../Themed'
 import React, { useState } from 'react'
 import { StyleSheet } from 'react-native'
-import RecentTrades from '../../assets/dummyData/RecentTrades'
 
-export default function TradeItem() { //TODO: assign props and use map() in RecentTrades component
-  const [trades, setTrades] = useState([])
+type Props = {
+  item: any,
+}
 
-  const displayTrades = () => {
-    return RecentTrades.map((item, id) => (
-      <View style={[styles.container, { borderColor: item.color }]} key={id}>
-        <View style={styles.left}>
-          <Text style={styles.tradePair}>{item.tradePair[0]}{'-'}{item.tradePair[1]}</Text>
-          <Text style={styles.exchangeAmount}>{item.exchangeAmount}{' '}{item.tradePair[0]}</Text>
-        </View>
-        <View style={styles.right}>
-          <Text style={styles.tradeAmount}>{item.tradeAmount}{' '}{item.tradePair[1]}</Text>
-          <Text style={[styles.percentGrowth, item.percentGrowth > 0 ? styles.green : styles.red]}>{item.percentGrowth}{'%'}</Text>
-        </View>
-      </View>
-    ))
-  }
+export default function TradeItem({ item }: Props) {
 
   return (
-    displayTrades()
+    <View style={[styles.container, { borderColor: item.color }]}>
+      <View style={styles.left}>
+        <Text style={styles.tradePair}>{item.tradePair[0]}{'-'}{item.tradePair[1]}</Text>
+        <Text style={styles.exchangeAmount}>{item.exchangeAmount}{' '}{item.tradePair[0]}</Text>
+      </View>
+      <View style={styles.right}>
+        <Text style={styles.tradeAmount}>{item.tradeAmount}{' '}{item.tradePair[1]}</Text>
+        <Text style={[styles.percentGrowth, item.percentGrowth > 0 ? styles.green : styles.red]}>{item.percentGrowth}{'%'}</Text>
+      </View>
+    </View>
   )
 }
 
