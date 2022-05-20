@@ -14,7 +14,6 @@ export default function TabFourScreen({
 
   const handleTopButton = (value: string) => {
     setTopButton(value);
-    console.log(topButton);
   }
 
   return (

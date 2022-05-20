@@ -4,7 +4,7 @@ import React from 'react'
 export default function WatchList() {
   return (
     <View>
-      <Text>WatchList</Text>
+      <Text>No items added yet</Text>
     </View>
   )
 }

@@ -30,7 +30,7 @@ export default function CoinMarketItem({ market }: Props) {
           <Ionicons name='repeat' size={25} style={styles.icon} />
           <Text style={styles.symbol}>{market.tradeCoin}</Text>
         </View>
-        <Text style={styles.marketName}>{market.baseCoinName}{', '}{market.tradeCoinName}</Text>
+        <Text style={styles.marketName} numberOfLines={1} >{market.baseCoinName}{', '}{market.tradeCoinName}</Text>
       </View>
       <View style={styles.tradeInfo}>
         <Text style={styles.tradeValue}>{market.tradeValue}</Text>
@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     top: 5,
     left: 0,
     borderRadius: 50,
+    zIndex: 2,
   },
   image2: {
     width: 40,
@@ -76,11 +77,13 @@ const styles = StyleSheet.create({
     position: 'relative',
     top: -5,
     left: -15,
+    zIndex: 1,
   },
   marketInfo: {
     flex: 2.25,
     flexDirection: 'column',
     alignItems: 'flex-start',
+    marginLeft: 10,
   },
   tradeInfo: {
     flex: 1.5,
