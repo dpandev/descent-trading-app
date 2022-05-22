@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import { Text, View, ScrollView, ModifiedButton } from '../../components/Themed';
+import Portfolio from '../../components/Portfolio';
 
 export default function TabTwoScreen() {
   const [topButton, setTopButton] = useState('assets')
@@ -34,6 +35,9 @@ export default function TabTwoScreen() {
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Text>Wallet page</Text>
+        <View style={styles.portfolioContainer}>
+          <Portfolio />
+        </View>
         <ModifiedButton 
           active={addAssetsButtonStyle}
           text='Add more assets'
@@ -60,4 +64,5 @@ const styles = StyleSheet.create({
   },
   addMoreBtnText: {},
   addMoreBtn: {},
+  portfolioContainer: {},
 });

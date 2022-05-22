@@ -1,0 +1,42 @@
+export default [{
+  coin: 'BTC',
+  amountHeld: 22.3920,
+  valueInUSD: 876302.47,
+  roiValue: 451556.23,
+  coinImg: '',
+}, 
+{
+  coin: 'DGB',
+  amountHeld: 91448,
+  valueInUSD: 9403.32,
+  roiValue: -1529.33,
+  coinImg: '',
+},
+{
+  coin: 'USD',
+  amountHeld: 76229.19,
+  valueInUSD: 76229.19,
+  roiValue: 25443.54,
+  coinImg: '',
+},
+{
+  coin: 'XMR',
+  amountHeld: 718.23,
+  valueInUSD: 9403.92,
+  roiValue: -2507.96,
+  coinImg: '',
+},
+{
+  coin: 'ETH',
+  amountHeld: 13.7561,
+  valueInUSD: 18903.92,
+  roiValue: 9982.22,
+  coinImg: '',
+},
+{
+  coin: 'DASH',
+  amountHeld: 386.911,
+  valueInUSD: 9371.06,
+  roiValue: -3194.41,
+  coinImg: '',
+}]
