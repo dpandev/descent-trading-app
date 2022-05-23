@@ -2,6 +2,8 @@ import { StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import { Text, View, ScrollView, ModifiedButton } from '../../components/Themed';
 import Portfolio from '../../components/Portfolio';
+import RecentTrades from '../../components/RecentTrades';
+import PageHeader from '../../components/PageHeader';
 
 export default function TabTwoScreen() {
   const [topButton, setTopButton] = useState('assets')
@@ -21,6 +23,7 @@ export default function TabTwoScreen() {
 
   return (
     <View style={styles.page}>
+      <PageHeader title={'Wallet'} />
       <View style={styles.topButtonsContainer}>
         <ModifiedButton
           active={topButton === 'assets'}
@@ -33,18 +36,26 @@ export default function TabTwoScreen() {
           onPress={() => handleTopButton('history')} 
         />
       </View>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Text>Wallet page</Text>
+      <ScrollView 
+        showsVerticalScrollIndicator={false}
+        style={styles.scrollContainer}
+        contentContainerStyle={{ width: '100%' }}
+      >
         <View style={styles.portfolioContainer}>
-          <Portfolio />
+          {topButton === 'assets'
+            ? <Portfolio />
+            : <RecentTrades />
+          }
         </View>
-        <ModifiedButton 
-          active={addAssetsButtonStyle}
-          text='Add more assets'
-          onPress={() => handleAddMore()}
-          onPressIn={changeButtonStyle}
-          onPressOut={changeButtonStyle}
-        />
+        <View style={styles.addMoreBtn}>
+          <ModifiedButton 
+            active={addAssetsButtonStyle}
+            text='Add more'
+            onPress={() => handleAddMore()}
+            onPressIn={changeButtonStyle}
+            onPressOut={changeButtonStyle}
+          />
+        </View>
       </ScrollView>
     </View>
   );
@@ -53,6 +64,7 @@ export default function TabTwoScreen() {
 const styles = StyleSheet.create({
   page: {
     marginTop: 30,
+    padding: 15,
   },
   container: {
     flex: 1,
@@ -63,6 +75,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   addMoreBtnText: {},
-  addMoreBtn: {},
+  addMoreBtn: {
+    alignItems: 'center',
+  },
   portfolioContainer: {},
+  scrollContainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
 });
