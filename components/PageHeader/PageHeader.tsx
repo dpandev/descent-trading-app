@@ -21,7 +21,7 @@ export default function PageHeader({ title, searchbarOptions, buttonsOptions }: 
       }
       <Text style={styles.title}>{title}</Text>
       {buttonsOptions
-        ? <ThreeCustomTabs onBtnChange={buttonsOptions.callback} buttonText={buttonsOptions.buttons} />
+        ? <ThreeCustomTabs buttons={buttonsOptions.buttons} setRenderComp={buttonsOptions.setRenderComp} />
         : null
       }
     </View>

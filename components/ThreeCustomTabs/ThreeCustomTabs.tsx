@@ -3,48 +3,36 @@ import { StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 
 type Props = {
-  onBtnChange: Function,
-  // buttonText: Array<string>,
-  buttonText: any,
+  buttons: any,
+  setRenderComp: any,
 }
 
-export default function ThreeCustomTabs({ onBtnChange, buttonText,  }: Props) {
-  const [activeButton, setActiveButton] = useState(buttonText[0].name)
-  console.log(buttonText[0]);
+export default function ThreeCustomTabs({ buttons, setRenderComp }: Props) {
+  const [activeButton, setActiveButton] = useState(buttons[0].name)
 
-  const onButtonPress = (value: string) => {
-    setActiveButton(value)
-    onBtnChange(value)
+  const onButtonPress = (value: any) => {
+    setActiveButton(value.name)
+    setRenderComp(value.component)
   }
-
-  // const sendBackToParent = (value: string) => {
-  //   if (value === buttonOptions.buttons[0].name) {
-  //     return <Home />
-  //   } else if (value === buttonOptions.buttons[1].name) {
-  //     return <Rankings />
-  //   } else if (value === buttonOptions.buttons[2].name) {
-  //     return <Store />
-  //   }
-  // }
 
   return (
     <View style={styles.headerButtonsContainer}>
       <ModifiedButton 
-        active={activeButton === buttonText[0].name}
-        text={buttonText[0].name}
-        onPress={() => onButtonPress(buttonText[0].name)}
+        active={activeButton === buttons[0].name}
+        text={buttons[0].name}
+        onPress={() => onButtonPress(buttons[0])}
         buttonStyles={styles.headerButton}
       />
       <ModifiedButton 
-        active={activeButton === buttonText[1].name}
-        text={buttonText[1].name}
-        onPress={() => onButtonPress(buttonText[1].name)}
+        active={activeButton === buttons[1].name}
+        text={buttons[1].name}
+        onPress={() => onButtonPress(buttons[1])}
         buttonStyles={styles.headerButton}
       />
       <ModifiedButton 
-        active={activeButton === buttonText[2].name}
-        text={buttonText[2].name}
-        onPress={() => onButtonPress(buttonText[2].name)}
+        active={activeButton === buttons[2].name}
+        text={buttons[2].name}
+        onPress={() => onButtonPress(buttons[2])}
         buttonStyles={styles.headerButton}
       />
     </View>

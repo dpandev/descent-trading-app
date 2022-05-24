@@ -21,6 +21,7 @@
  import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
  import LinkingConfiguration from './LinkingConfiguration';
  import TabFourScreen from '../screens/tabs/TabFourScreen';
+import Store from '../screens/Store';
  
  export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
    return (
@@ -59,6 +60,11 @@
          name='Settings' 
          component={SettingsScreen} 
          options={{ title: 'Settings', animation: 'slide_from_right' }} 
+       />
+       <Stack.Screen 
+         name='Store' 
+         component={Store} 
+         options={{ headerShown: false, title: 'Store' }} 
        />
      </Stack.Navigator>
    );

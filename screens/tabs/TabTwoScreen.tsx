@@ -5,7 +5,7 @@ import Portfolio from '../../components/Portfolio';
 import RecentTrades from '../../components/RecentTrades';
 import PageHeader from '../../components/PageHeader';
 
-export default function TabTwoScreen() {
+export default function TabTwoScreen({ navigation }: any) {
   const [topButton, setTopButton] = useState('assets')
   const [addAssetsButtonStyle, setAddAssetsButtonStyle] = useState(false)
 
@@ -19,11 +19,12 @@ export default function TabTwoScreen() {
 
   const handleAddMore = () => {
     console.log('add more assets');
+    navigation.navigate('Store')
   }
 
   return (
     <View style={styles.page}>
-      <PageHeader title={'Wallet'} />
+      {/* <PageHeader title={'Wallet'} /> */}
       <View style={styles.topButtonsContainer}>
         <ModifiedButton
           active={topButton === 'assets'}

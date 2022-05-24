@@ -5,12 +5,14 @@ import Rankings from '../Rankings';
 import Home from '../Home';
 import Store from '../Store';
 import PageHeader from '../../components/PageHeader';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 export default function TabOneScreen() {
-  const [topButtons, setTopButtons] = useState(['Home', 'Rankings', 'Store'])
-  const [activeButton, setActiveButton] = useState(topButtons[0])
-  const [reComp, setReComp] = useState(<></>)
-  const buttonOptions  = {
+
+  const Stack = createNativeStackNavigator()
+
+  const [reComp, setReComp] = useState(<Home />)
+  const buttonOptions = {
     buttons: [
       {
         name: 'Home',
@@ -25,28 +27,8 @@ export default function TabOneScreen() {
         component: <Store />,
       }
     ],
-    callback: setActiveButton,
+    setRenderComp: setReComp,
   }
-
-  const renderView = (value: string) => {
-    if (value === buttonOptions.buttons[0].name) {
-      return <Home />
-    } else if (value === buttonOptions.buttons[1].name) {
-      return <Rankings />
-    } else if (value === buttonOptions.buttons[2].name) {
-      return <Store />
-    }
-  }
-
-  // const renderView = (value: string) => {
-  //   if (value === topButtons[0]) {
-  //     return <Home />
-  //   } else if (value === topButtons[1]) {
-  //     return <Rankings />
-  //   } else if (value === topButtons[2]) {
-  //     return <Store />
-  //   }
-  // }
 
   return (
     <View style={styles.page}>
@@ -56,7 +38,7 @@ export default function TabOneScreen() {
         style={styles.scrollContainer}
         contentContainerStyle={{ width: '100%' }}
       >
-        {renderView(activeButton)}
+        {reComp}
       </ScrollView>
     </View>
   );

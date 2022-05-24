@@ -5,24 +5,26 @@ import PageHeader from '../../components/PageHeader';
 import { ScrollView, Text, View } from '../../components/Themed';
 
 export default function TabThreeScreen() {
-  const [topButtons, setTopButtons] = useState(['All', 'Watchlist', 'Trending'])
-  const [activeButton, setActiveButton] = useState('all')
-  const buttonOptions = {
-    text: topButtons,
-    callback: setActiveButton,
-  }
+  const [reComp, setReComp] = useState(<CoinList sorted={false} isWatchList={false} />)
   const searchbarOptions = {
     placeholder: 'search a coin',
   }
- 
-  const renderView = (value: string) => {
-    if (value === topButtons[0]) {
-      return <CoinList sorted={false} isWatchList={false} />
-    } else if (value === topButtons[1]) {
-      return <CoinList sorted={false} isWatchList={true} />
-    } else if (value === topButtons[2]) {
-      return <CoinList sorted={true} isWatchList={false} />
-    }
+  const buttonOptions  = {
+    buttons: [
+      {
+        name: 'All',
+        component: <CoinList sorted={false} isWatchList={false} />,
+      },
+      {
+        name: 'Watchlist',
+        component: <CoinList sorted={false} isWatchList={true} />,
+      },
+      {
+        name: 'Trending',
+        component: <CoinList sorted={true} isWatchList={false} />,
+      }
+    ],
+    setRenderComp: setReComp,
   }
 
   return (
@@ -33,7 +35,7 @@ export default function TabThreeScreen() {
         style={styles.markets}
         // contentContainerStyle={{ alignItems: 'center' }}
       >
-        {renderView(activeButton)}
+        {reComp}
       </ScrollView>
     </View>
   );

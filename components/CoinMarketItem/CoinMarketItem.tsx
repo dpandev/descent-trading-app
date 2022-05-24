@@ -1,15 +1,23 @@
 import { View, Text } from '../Themed'
 import React from 'react'
-import { StyleSheet, Image } from 'react-native'
+import { StyleSheet, Image, Pressable } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
 
 type Props = {
-  market: any,
+  market: any;
 }
 
 export default function CoinMarketItem({ market }: Props) {
+  const navigation = useNavigation()
+
+  const handlePress = (value: string) => {
+    console.log('coin market pressed: ', value);
+    // navigation.navigate('marketmodal', {params: market})
+  }
+
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={() => handlePress(market.id)}>
       <View style={styles.images}>
         <Image 
           source={{ uri: market.baseCoinImg }}
@@ -42,7 +50,7 @@ export default function CoinMarketItem({ market }: Props) {
           {'%'}
         </Text>
       </View>
-    </View>
+    </Pressable>
   )
 }
 

@@ -12,9 +12,15 @@ export default function Portfolio() {
     const sortedByROI =  baba.sort((a, b) => (a.roiValue < b.roiValue) ? 1 : -1)
     // setAssetsList(baba.sort((a, b) => (a.roiValue < b.roiValue) ? 1 : -1))
     return (
-      sortedByROI.map((item, id) => (
-        <PortfolioAssetItem item={item} key={id} />
-      ))
+      <View style={styles.container}>
+        <View style={styles.account}>
+          <Text style={styles.title}>Current Wallet Balance</Text>
+          <Text style={styles.balance}>$60,300,102.54</Text>
+        </View>
+        {sortedByROI.map((item, id) => (
+          <PortfolioAssetItem item={item} key={id} />
+        ))}
+      </View>
     )
   }
 
@@ -27,4 +33,15 @@ export default function Portfolio() {
 
 const styles = StyleSheet.create({
   container: {},
+  account: {
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  title: {
+    marginVertical: 5,
+  },
+  balance: {
+    fontSize: 28,
+    fontWeight: 'bold',
+  },
 })

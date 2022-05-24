@@ -1,7 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { Platform, Pressable, StyleSheet } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack'
-import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { RootStackParamList } from '../types';
 
