@@ -1,17 +1,15 @@
-import { Text, Pressable } from 'react-native'
+import { Pressable } from 'react-native'
 import React, { Component } from 'react'
 
-type Props = {
+export interface Props {
   onPress?: Function,
-  text?: string,
-  textStyles?: Object,
   buttonStyles?: Object,
   active?: boolean,
   activePress?: boolean,
   onPressChange?: Function,
 }
 
-class CustomButton extends Component<Props>{
+class ListItemButton extends Component<Props>{
 
   render() {
     return (
@@ -21,10 +19,10 @@ class CustomButton extends Component<Props>{
         onPressIn={() => this.props.onPressChange?.(true)}
         onPressOut={() => this.props.onPressChange?.(false)}
       >
-        <Text style={this.props.textStyles}>{this.props.text}</Text>
+        {this.props.children}
       </Pressable>
     )
   }
 }
 
-export default CustomButton
+export default ListItemButton

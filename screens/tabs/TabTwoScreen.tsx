@@ -1,87 +1,52 @@
-import { StyleSheet } from 'react-native';
-import React, { useState } from 'react';
-import { Text, View, ScrollView, ModifiedButton } from '../../components/Themed';
-import Portfolio from '../../components/Portfolio';
-import RecentTrades from '../../components/RecentTrades';
+import { StyleSheet, FlatList } from 'react-native';
+import { View } from '../../components/Themed';
+import PortfolioCoin from '../../components/PortfolioCoin';
 import PageHeader from '../../components/PageHeader';
+import { PreciseMoney } from '../../components/FormattedTextElements';
+import { portfolioData } from '../../assets/dummyData/portfolioData';
 
-export default function TabTwoScreen({ navigation }: any) {
-  const [topButton, setTopButton] = useState('assets')
-  const [addAssetsButtonStyle, setAddAssetsButtonStyle] = useState(false)
 
-  const handleTopButton = (value: string) => {
-    setTopButton(value)
-  }
-
-  const changeButtonStyle = () => {
-    setAddAssetsButtonStyle(prevState => !prevState)
-  }
-
-  const handleAddMore = () => {
-    console.log('add more assets');
-    navigation.navigate('Store')
-  }
-
+export default function TabTwoScreen() {
   return (
-    <View style={styles.page}>
-      {/* <PageHeader title={'Wallet'} /> */}
-      <View style={styles.topButtonsContainer}>
-        <ModifiedButton
-          active={topButton === 'assets'}
-          text='Assets' 
-          onPress={() => handleTopButton('assets')}
-        />
-        <ModifiedButton
-          active={topButton === 'history'}
-          text='History' 
-          onPress={() => handleTopButton('history')} 
-        />
-      </View>
-      <ScrollView 
+    <View style={styles.root}>
+      <PageHeader title={"Assets"} />
+      <FlatList
+        style={{width: '100%'}}
+        data={portfolioData}
+        keyExtractor={(item, index) => item.id}
+        renderItem={({item}) => <PortfolioCoin coin={item} />}
         showsVerticalScrollIndicator={false}
-        style={styles.scrollContainer}
-        contentContainerStyle={{ width: '100%' }}
-      >
-        <View style={styles.portfolioContainer}>
-          {topButton === 'assets'
-            ? <Portfolio />
-            : <RecentTrades />
-          }
-        </View>
-        <View style={styles.addMoreBtn}>
-          <ModifiedButton 
-            active={addAssetsButtonStyle}
-            text='Add more'
-            onPress={() => handleAddMore()}
-            onPressIn={changeButtonStyle}
-            onPressOut={changeButtonStyle}
-          />
-        </View>
-      </ScrollView>
+        ListHeaderComponentStyle={{alignItems: 'center'}}
+        ListHeaderComponent={() => (
+          <>
+            <View style={styles.balanceContainer}>
+              <PreciseMoney value={69420} style={styles.balance} />
+            </View>
+          </>
+        )}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  page: {
-    marginTop: 30,
-    padding: 15,
-  },
-  container: {
+  root: {
     flex: 1,
-    padding: 15,
-  },
-  topButtonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  addMoreBtnText: {},
-  addMoreBtn: {
     alignItems: 'center',
+    paddingTop: 30,
+    paddingHorizontal: 20,
   },
-  portfolioContainer: {},
-  scrollContainer: {
-    flexDirection: 'column',
+  balanceContainer: {
+    width: '100%',
     alignItems: 'center',
+    marginVertical: 10,
+  },
+  label: {},
+  balance: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    width: '85%',
+    textAlign: 'center',
+    color: '#7A5AE7',
   },
 });

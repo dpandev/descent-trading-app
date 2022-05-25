@@ -1,22 +1,22 @@
-import { View, Text } from '../Themed'
+import { ElementView, Text } from '../Themed'
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import Searchbar from '../Searchbar'
 import ThreeCustomTabs from '../ThreeCustomTabs'
 
-type Props = {
+export interface PageHeaderProps {
   title: string;
   searchbarOptions?: any;
   buttonsOptions?: any;
 }
 
-export default function PageHeader({ title, searchbarOptions, buttonsOptions }: Props) {
+export default function PageHeader({ title, searchbarOptions, buttonsOptions }: PageHeaderProps) {
   return (
-    <View style={styles.header}>
+    <ElementView style={styles.header}>
       {searchbarOptions
-        ? <View style={styles.search}>
+        ? <ElementView style={styles.search}>
             <Searchbar placeholder={searchbarOptions.placeholder} />
-          </View>
+          </ElementView>
         : null
       }
       <Text style={styles.title}>{title}</Text>
@@ -24,7 +24,7 @@ export default function PageHeader({ title, searchbarOptions, buttonsOptions }: 
         ? <ThreeCustomTabs buttons={buttonsOptions.buttons} setRenderComp={buttonsOptions.setRenderComp} />
         : null
       }
-    </View>
+    </ElementView>
   )
 }
 
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
   header: {
     width: '90%',
     marginTop: 20,
+    paddingHorizontal: 10,
   },
   title: {
     fontSize: 38,

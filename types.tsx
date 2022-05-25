@@ -19,6 +19,9 @@ export type RootStackParamList = {
   Store: undefined;
   Modal: undefined;
   NotFound: undefined;
+  Settings: undefined;
+  CoinDetails: any;
+  CoinExchange: any;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<

@@ -1,13 +1,13 @@
-import { View, ModifiedButton } from '../Themed'
+import { ElementView, ModifiedButton } from '../Themed'
 import { StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 
-type Props = {
+export interface ThreeCustomTabsProps {
   buttons: any,
   setRenderComp: any,
 }
 
-export default function ThreeCustomTabs({ buttons, setRenderComp }: Props) {
+export default function ThreeCustomTabs({ buttons, setRenderComp }: ThreeCustomTabsProps) {
   const [activeButton, setActiveButton] = useState(buttons[0].name)
 
   const onButtonPress = (value: any) => {
@@ -16,7 +16,7 @@ export default function ThreeCustomTabs({ buttons, setRenderComp }: Props) {
   }
 
   return (
-    <View style={styles.headerButtonsContainer}>
+    <ElementView style={styles.headerButtonsContainer}>
       <ModifiedButton 
         active={activeButton === buttons[0].name}
         text={buttons[0].name}
@@ -35,7 +35,7 @@ export default function ThreeCustomTabs({ buttons, setRenderComp }: Props) {
         onPress={() => onButtonPress(buttons[2])}
         buttonStyles={styles.headerButton}
       />
-    </View>
+    </ElementView>
   )
 }
 

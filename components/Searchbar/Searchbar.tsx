@@ -1,18 +1,18 @@
-import { View, Text } from '../Themed'
+import { ElementView, Text } from '../Themed'
 import React from 'react'
 import { StyleSheet, TextInput } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme';
 
-type Props = {
+export interface SearchbarProps {
   placeholder?: string,
 }
 
-export default function Searchbar({ placeholder }: Props) {
+export default function Searchbar({ placeholder }: SearchbarProps) {
   const colorScheme = useColorScheme();
   return (
-    <View style={styles.container}>
+    <ElementView style={styles.container}>
       <Ionicons
         name="search"
         size={25}
@@ -23,7 +23,7 @@ export default function Searchbar({ placeholder }: Props) {
         placeholder={placeholder}
         style={styles.input} 
       />
-    </View>
+    </ElementView>
   )
 }
 

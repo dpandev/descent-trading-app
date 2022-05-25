@@ -10,6 +10,7 @@ import {
   Button as DefaultButton,
 } from 'react-native';
 import CustomButton from './CustomButton';
+import ListItemButton from './ListItemButton';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
@@ -38,6 +39,7 @@ export type ViewProps = ThemeProps & DefaultView['props'];
 export type ScrollViewProps = ThemeProps & DefaultScrollView['props'];
 export type ButtonProps = ThemeProps & DefaultButton['props'];
 export type ModifiedButtonProps = ThemeProps & CustomButton['props'];
+export type ModifiedListItemButtonProps = ThemeProps & ListItemButton['props'];
 
 export function Text(props: TextProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
@@ -49,6 +51,13 @@ export function Text(props: TextProps) {
 export function View(props: ViewProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
   const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
+
+  return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
+}
+
+export function ElementView(props: ViewProps) {
+  const { style, lightColor, darkColor, ...otherProps } = props;
+  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'transparent');
 
   return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
 }
@@ -68,7 +77,7 @@ export function Button(props: ButtonProps) {
 }
 
 export function ModifiedButton(props: ModifiedButtonProps) {
-  const { active, textStyles, buttonStyles, lightColor, darkColor, ...otherProps } = props;
+  const { activePress, active, textStyles, buttonStyles, lightColor, darkColor, ...otherProps } = props;
   const txtStyle = { 
     color: useThemeColor({ light: lightColor, dark: darkColor }, 'text'),
     fontWeight: 'bold',
@@ -77,11 +86,13 @@ export function ModifiedButton(props: ModifiedButtonProps) {
   }
   const btnStyle = {
     backgroundColor: useThemeColor({ light: lightColor, dark: darkColor }, 
-      active ? 'secondary' : 'primary'),
+      active || activePress ? 'secondary' : 'primary'),
     borderColor: useThemeColor({ light: lightColor, dark: darkColor }, 
-      active ? 'secondary' : 'primary'),
+      active || activePress ? 'secondary' : 'primary'),
     alignItems: 'center',
+    justifyContent: 'center',
     paddingVertical: 15,
+    paddingHorizontal: 25,
     marginVertical: 25,
     marginHorizontal: 10,
     borderRadius: 50,
@@ -103,35 +114,66 @@ export function FollowButton(props: ModifiedButtonProps) {
     backgroundColor: useThemeColor({ light: lightColor, dark: darkColor }, 
       active ? 'secondary' : 'primary'),
     borderColor: useThemeColor({ light: lightColor, dark: darkColor }, 
-      active ? 'secondary' : 'primary'),
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+      active ? 'secondary' : 'secondary'),
+    // paddingHorizontal: 16,
+    // paddingVertical: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 6,
+    borderWidth: 2,
+    width: 80,
+    height: 35,
     ...(buttonStyles ? buttonStyles : {})
   }
 
   return <CustomButton active={active} textStyles={txtStyle} buttonStyles={btnStyle} {...otherProps} />;
 }
 
-// export function SimpleButton(props: ModifiedButtonProps) {
-//   const { active, textStyles, buttonStyles, lightColor, darkColor, ...otherProps } = props;
-//   const txtStyle = { 
-//     color: useThemeColor({ light: lightColor, dark: darkColor }, 'text'),
-//     ...(textStyles ? textStyles : {})
-//   }
-//   const btnStyle = {
-//     backgroundColor: useThemeColor({ light: lightColor, dark: darkColor }, 'primary'),
-//     borderColor: useThemeColor({ light: lightColor, dark: darkColor }, 'primary'),
-//     ...(buttonStyles ? buttonStyles : {})
-//   }
+export function ModifiedListItemButton(props: ModifiedListItemButtonProps) {
+  const { activePress, active, buttonStyles, lightColor, darkColor, ...otherProps } = props;
+  const btnStyle = {
+    backgroundColor: useThemeColor({ light: lightColor, dark: darkColor }, 
+      active || activePress ? 'secondary' : 'primary'),
+    borderColor: useThemeColor({ light: lightColor, dark: darkColor }, 
+      active || activePress ? 'secondary' : 'primary'),
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    marginVertical: 8,
+    alignSelf: 'center',
+    borderRadius: 8,
+    width: '100%',
+    borderWidth: 1,
+    ...(buttonStyles ? buttonStyles : {})
+  }
 
-//   const btnActive = {
-//     backgroundColor: useThemeColor({ light: lightColor, dark: darkColor }, 'secondary'),
-//     borderColor: useThemeColor({ light: lightColor, dark: darkColor }, 'secondary'),
-//     ...(buttonStyles ? buttonStyles : {})
-//   }
+  return <ListItemButton active={active} buttonStyles={btnStyle} {...otherProps} />;
+}
 
-//   const finalBtnStyle = active ? btnActive : btnStyle
+export function ModifiedButtonInverted(props: ModifiedButtonProps) {
+  const { activePress, active, textStyles, buttonStyles, lightColor, darkColor, ...otherProps } = props;
+  const txtStyle = { 
+    color: useThemeColor({ light: lightColor, dark: darkColor }, 'text'),
+    fontWeight: 'bold',
+    letterSpacing: 0.45,
+    ...(textStyles ? textStyles : {}) 
+  }
+  const btnStyle = {
+    backgroundColor: useThemeColor({ light: lightColor, dark: darkColor }, 
+      active || activePress ? 'primary' : 'secondary'),
+    borderColor: useThemeColor({ light: lightColor, dark: darkColor }, 
+      active || activePress ? 'primary' : 'secondary'),
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 15,
+    paddingHorizontal: 25,
+    marginVertical: 25,
+    marginHorizontal: 10,
+    borderRadius: 50,
+    width: '35%',
+    borderWidth: 1,
+    ...(buttonStyles ? buttonStyles : {})
+  }
 
-//   return <CustomButton active={active} textStyles={txtStyle} buttonStyles={finalBtnStyle} {...otherProps} />;
-// }
+  return <CustomButton active={active} textStyles={txtStyle} buttonStyles={btnStyle} {...otherProps} />;
+}

@@ -1,11 +1,40 @@
-import { useState } from 'react';
-import { StyleSheet } from 'react-native';
-import CoinList from '../../components/CoinList';
+import React, { useState } from 'react';
+import { FlatList, StyleSheet} from 'react-native';
+import { View } from '../../components/Themed';
+import MarketCoin from "../../components/MarketCoin";
 import PageHeader from '../../components/PageHeader';
-import { ScrollView, Text, View } from '../../components/Themed';
+import { coinData } from '../../assets/dummyData/coinData';
+import { watchlistData } from '../../assets/dummyData/watchlistData';
+
+const componentsToRender = {
+  component1: 
+    <FlatList
+      style={{width: '100%'}}
+      data={coinData}
+      renderItem={({item}) => <MarketCoin marketCoin={item} />}
+      showsVerticalScrollIndicator={false}
+      ListHeaderComponentStyle={{alignItems: 'center'}}
+    />,
+  component2: 
+    <FlatList
+      style={{width: '100%'}}
+      data={watchlistData}
+      renderItem={({item}) => <MarketCoin marketCoin={item} />}
+      showsVerticalScrollIndicator={false}
+      ListHeaderComponentStyle={{alignItems: 'center'}}
+    />,
+  component3:
+    <FlatList
+      style={{width: '100%'}}
+      data={coinData.map(item => ({...item})).sort((a, b) => (a.valueChange24H < b.valueChange24H ? 1 : -1))}
+      renderItem={({item}) => <MarketCoin marketCoin={item} />}
+      showsVerticalScrollIndicator={false}
+      ListHeaderComponentStyle={{alignItems: 'center'}}
+    />,
+}
 
 export default function TabThreeScreen() {
-  const [reComp, setReComp] = useState(<CoinList sorted={false} isWatchList={false} />)
+  const [reComp, setReComp] = useState(componentsToRender.component1)
   const searchbarOptions = {
     placeholder: 'search a coin',
   }
@@ -13,46 +42,33 @@ export default function TabThreeScreen() {
     buttons: [
       {
         name: 'All',
-        component: <CoinList sorted={false} isWatchList={false} />,
+        component: componentsToRender.component1,
       },
       {
         name: 'Watchlist',
-        component: <CoinList sorted={false} isWatchList={true} />,
+        component: componentsToRender.component2,
       },
       {
         name: 'Trending',
-        component: <CoinList sorted={true} isWatchList={false} />,
+        component: componentsToRender.component3,
       }
     ],
     setRenderComp: setReComp,
   }
-
   return (
-    <View style={styles.container}>
+    <View style={styles.root}>
       <PageHeader title={'Trading'} buttonsOptions={buttonOptions} searchbarOptions={searchbarOptions} />
-      <ScrollView 
-        showsVerticalScrollIndicator={false} 
-        style={styles.markets}
-        // contentContainerStyle={{ alignItems: 'center' }}
-      >
-        {reComp}
-      </ScrollView>
+      {reComp}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: {
+  root: {
     flex: 1,
-    padding: 15,
     alignItems: 'center',
-  },
-  markets: {
-    width: '95%',
-    backgroundColor: 'red',
-  },
-  test: {
-    backgroundColor: 'red',
-    color: 'blue',
+    paddingTop: 20,
+    paddingHorizontal: 10,
+    width: '100%',
   },
 });
