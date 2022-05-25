@@ -3,7 +3,7 @@
  * https://docs.expo.io/guides/color-schemes/
  */
 
- import { 
+import { 
   Text as DefaultText, 
   View as DefaultView, 
   ScrollView as DefaultScrollView, 

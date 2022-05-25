@@ -1,23 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
 import { Platform, Pressable, StyleSheet } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack'
+import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { RootStackParamList } from '../types';
 
-export default function ModalScreen({
+export default function SettingsScreen({
   navigation
 }: StackScreenProps<RootStackParamList>) {
-  const onPress = () => {
-    navigation.goBack()
-  }
 
   return (
-    <Pressable style={styles.container} onPress={onPress}>
-      <Text style={styles.title}>Modal</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Settings</Text>
 
       {/* Use a light status bar on iOS to account for the black space above the modal */}
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
-    </Pressable>
+    </View>
   );
 }
 
