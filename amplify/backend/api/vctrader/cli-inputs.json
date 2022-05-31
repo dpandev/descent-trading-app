@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "vctrader",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "C:\\Users\\Jarvis\\Documents\\2021projects\\VCTrader\\amplify\\backend\\api\\vctrader\\schema.graphql",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 7
+    }
+  }
+}

@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { View, ElementView, Text, ModifiedButton } from '../../components/Themed'
 import CustomInput from '../../components/CustomInput'
 import { useNavigation } from '@react-navigation/native'
+import SocialLoginButtons from '../../components/SocialLoginButtons'
 
 export default function SignupScreen() {
   const [email, setEmail] = useState('')
@@ -73,6 +74,7 @@ export default function SignupScreen() {
               activePress={activeButton}
               onPressChange={setActiveButton}
             />
+            <SocialLoginButtons />
             <Text style={[styles.signinLabel, styles.lightColor]}>Already have an account?</Text>
             <ModifiedButton 
               onPress={onPressSignin}

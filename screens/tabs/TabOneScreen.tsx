@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native';
+import SocialLoginButtons from '../../components/SocialLoginButtons';
 import { View, Text, ModifiedButton } from '../../components/Themed'
 import { RootTabScreenProps } from '../../types';
+import React, { useEffect } from 'react';
+import { Auth } from 'aws-amplify'
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
 
@@ -11,6 +14,17 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
   const onSignin = () => {
     navigation.navigate('SigninScreen')
   }
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const user = await Auth.currentAuthenticatedUser()
+      if (user) {
+        navigation.navigate('Root')
+      }
+    }
+    
+    fetchUser()
+  }, [])
 
   return (//TODO display welcome screen -> useContext in navigation for unauthenticated user -> display signin/signup over bottomtabs
     <View style={styles.container}>
@@ -24,6 +38,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
         onPress={onSignup}
         text='Sign up'
       />
+      <SocialLoginButtons />
     </View>
   );
 }

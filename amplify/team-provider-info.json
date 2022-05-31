@@ -9,7 +9,21 @@
       "UnauthRoleName": "amplify-vctrader-dev-224959-unauthRole",
       "StackName": "amplify-vctrader-dev-224959",
       "StackId": "arn:aws:cloudformation:us-west-1:226737356507:stack/amplify-vctrader-dev-224959/21f870e0-e09d-11ec-9a47-02d6897b6699",
-      "AmplifyAppId": "d3aznp54wlyeyp"
+      "AmplifyAppId": "d3aznp54wlyeyp",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-vctrader-dev-224959-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "auth": {
+        "vctrader75e8f239": {
+          "googleClientId": "935678650643-vjkokvh386ee5vtc4aie4hjh77i6cfeb.apps.googleusercontent.com"
+        }
+      },
+      "function": {
+        "vctrader75e8f239PostConfirmation": {
+          "deploymentBucketName": "amplify-vctrader-dev-224959-deployment",
+          "s3Key": "amplify-builds/vctrader75e8f239PostConfirmation-6e55614d786639725359-build.zip"
+        }
+      }
     }
   }
 }
