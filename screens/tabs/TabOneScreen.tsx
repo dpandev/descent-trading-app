@@ -12,7 +12,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
     navigation.navigate('SigninScreen')
   }
 
-  return (
+  return (//TODO display welcome screen -> useContext in navigation for unauthenticated user -> display signin/signup over bottomtabs
     <View style={styles.container}>
       <Text style={styles.title}>Home Tab</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />

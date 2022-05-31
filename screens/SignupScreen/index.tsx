@@ -2,15 +2,17 @@ import { StyleSheet, Image, KeyboardAvoidingView, Platform } from 'react-native'
 import React, { useState } from 'react'
 import { View, ElementView, Text, ModifiedButton } from '../../components/Themed'
 import CustomInput from '../../components/CustomInput'
+import { useNavigation } from '@react-navigation/native'
 
 export default function SignupScreen() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [activeButton, setActiveButton] = useState(false)
+  const navigation = useNavigation()
 
   const onPressSignin = () => {
-    console.log("signin pressed");
+    navigation.navigate('SigninScreen')
   }
 
   const onPressSignup = () => {

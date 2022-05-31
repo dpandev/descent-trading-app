@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
   },
   settings: {
     marginTop: 'auto',
-    maxWidth: '45%',
+    paddingHorizontal: 45,
+    width: '100%',
   },
 })
