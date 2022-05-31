@@ -1,14 +1,18 @@
 import { Text, Pressable } from 'react-native'
 import React, { Component } from 'react'
+import { FontAwesome } from '@expo/vector-icons';
 
 type Props = {
   onPress?: Function,
-  text?: string,
+  text: string,
   textStyles?: Object,
   buttonStyles?: Object,
   active?: boolean,
   activePress?: boolean,
   onPressChange?: Function,
+  icon?: any,
+  iconSize?: number,
+  iconColor?: any,
 }
 
 class CustomButton extends Component<Props>{
@@ -22,6 +26,13 @@ class CustomButton extends Component<Props>{
         onPressOut={() => this.props.onPressChange?.(false)}
       >
         <Text style={this.props.textStyles}>{this.props.text}</Text>
+        {this.props.icon &&
+          <FontAwesome 
+            name={this.props.icon} 
+            size={this.props.iconSize} 
+            color={this.props.iconColor}
+          />
+        }
       </Pressable>
     )
   }

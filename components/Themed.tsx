@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import CustomButton from './CustomButton';
 import ListItemButton from './ListItemButton';
+import CustomInput from './CustomInput';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
@@ -40,6 +41,7 @@ export type ScrollViewProps = ThemeProps & DefaultScrollView['props'];
 export type ButtonProps = ThemeProps & DefaultButton['props'];
 export type ModifiedButtonProps = ThemeProps & CustomButton['props'];
 export type ModifiedListItemButtonProps = ThemeProps & ListItemButton['props'];
+export type ModifiedInput = ThemeProps & CustomInput['props'];
 
 export function Text(props: TextProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
@@ -77,11 +79,12 @@ export function Button(props: ButtonProps) {
 }
 
 export function ModifiedButton(props: ModifiedButtonProps) {
-  const { activePress, active, textStyles, buttonStyles, lightColor, darkColor, ...otherProps } = props;
+  const { icon, iconColor, activePress, active, textStyles, buttonStyles, lightColor, darkColor, ...otherProps } = props;
   const txtStyle = { 
     color: useThemeColor({ light: lightColor, dark: darkColor }, 'text'),
     fontWeight: 'bold',
     letterSpacing: 0.45,
+    marginRight: icon ? 15 : 0,
     ...(textStyles ? textStyles : {}) 
   }
   const btnStyle = {
@@ -89,6 +92,7 @@ export function ModifiedButton(props: ModifiedButtonProps) {
       active || activePress ? 'secondary' : 'primary'),
     borderColor: useThemeColor({ light: lightColor, dark: darkColor }, 
       active || activePress ? 'secondary' : 'primary'),
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 15,
@@ -101,7 +105,9 @@ export function ModifiedButton(props: ModifiedButtonProps) {
     ...(buttonStyles ? buttonStyles : {})
   }
 
-  return <CustomButton active={active} textStyles={txtStyle} buttonStyles={btnStyle} {...otherProps} />;
+  const iColor = txtStyle.color
+
+  return <CustomButton active={active} textStyles={txtStyle} buttonStyles={btnStyle} iconColor={iColor} icon={icon} {...otherProps} />;
 }
 
 export function FollowButton(props: ModifiedButtonProps) {
@@ -174,6 +180,11 @@ export function ModifiedButtonInverted(props: ModifiedButtonProps) {
     borderWidth: 1,
     ...(buttonStyles ? buttonStyles : {})
   }
-
-  return <CustomButton active={active} textStyles={txtStyle} buttonStyles={btnStyle} {...otherProps} />;
+  return <CustomButton active={active} textStyles={txtStyle} buttonStyles={btnStyle} {...otherProps} />
 }
+
+export function ModifiedInput(props: ModifiedInput) {
+  const { inputStyles, lightColor, darkColor, ...otherProps } = props;
+  return <CustomInput {...otherProps} />;
+}
+

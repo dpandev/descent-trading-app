@@ -24,6 +24,8 @@ import LinkingConfiguration from './LinkingConfiguration';
 import CoinDetailsScreen from '../screens/CoinDetailsScreen';
 import CoinExchangeScreen from '../screens/CoinExchangeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import SignupScreen from '../screens/SignupScreen';
+import SigninScreen from '../screens/SigninScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -64,6 +66,16 @@ function RootNavigator() {
           name="CoinExchange" 
           component={CoinExchangeScreen} 
           options={{ title: 'Exchange', headerStyle: { backgroundColor: Colors[colorScheme].secondary } }} 
+        />
+        <Stack.Screen 
+          name="SignupScreen" 
+          component={SignupScreen} 
+          options={{ title: 'Sign in', headerShown: false } }
+        />
+        <Stack.Screen 
+          name="SigninScreen" 
+          component={SigninScreen} 
+          options={{ title: 'Sign up', headerShown: false } }
         />
       </Stack.Group>
     </Stack.Navigator>
