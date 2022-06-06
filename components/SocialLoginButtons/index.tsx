@@ -18,10 +18,6 @@ export default function SocialLoginButtons() {
     console.warn('Sign In Facebook')
   }
 
-  const onSignInWithPhone = () => {
-    console.warn('Sign In Phone')
-  }
-
   return (
     <>
       <SimpleColorButton 

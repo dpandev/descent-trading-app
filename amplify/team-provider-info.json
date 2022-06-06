@@ -21,7 +21,7 @@
       "function": {
         "vctrader75e8f239PostConfirmation": {
           "deploymentBucketName": "amplify-vctrader-dev-224959-deployment",
-          "s3Key": "amplify-builds/vctrader75e8f239PostConfirmation-6e55614d786639725359-build.zip"
+          "s3Key": "amplify-builds/vctrader75e8f239PostConfirmation-6746536e486144464b43-build.zip"
         }
       }
     }
