@@ -1,37 +1,77 @@
-import React, { useState } from 'react';
-import { Image, Pressable } from 'react-native';
+import React, { useEffect, useState, useContext } from 'react';
+import { Image, Pressable, ActivityIndicator } from 'react-native';
 import { ElementView, Text, ModifiedButtonInverted, ModifiedButton } from '../../components/Themed'
 import { Octicons } from "@expo/vector-icons";
 import styles from "./styles";
 import { PercentageChange, PreciseMoney } from "../../components/FormattedTextElements";
 import CoinPriceGraph from "../../components/CoinPriceGraph";
-import {useNavigation} from "@react-navigation/native";
-import priceHistory from '../../assets/dummyData/priceHistory'
+import {useNavigation, useRoute} from "@react-navigation/native";
+import { API, graphqlOperation } from 'aws-amplify';
+import { getCoin, listPortfolioCoins } from '../../src/graphql/queries';
+import { AuthenticatedUserContext } from '../../navigation/AuthenticatedUserProvider';
 
 const CoinDetailsScreen = () => {
+  const { user } = useContext(AuthenticatedUserContext)
   const [starActive, setStarActive] = useState(false)//todo replace with data
   const [buyActive, setBuyActive] = useState(false)
   const [sellActive, setSellActive] = useState(false)
-  const [coinData, setCoinData] = useState({
-    id: '1',
-    image: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/1.jpg',
-    name: 'Bitcoin',
-    symbol: 'BTC',
-    valueChange24H: -1.12,
-    valueChange1D: 2.12,
-    valueChange7D: -1.12,
-    currentPrice: 59420,
-    amount: 2,
-  })
+  const [coin, setCoin] = useState(null)
+  const [portfolioCoin, setPortfolioCoin] = useState(null)
 
   const navigation = useNavigation();
+  const route = useRoute();
+
+  const fetchCoinData = async () => {
+    if (!route.params?.id) {
+      return;
+    }
+    try {
+      const response = await API.graphql(graphqlOperation(getCoin, { id: route.params.id }))
+      setCoin(response.data.getCoin)
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
+  const fetchPortfolioCoinData = async () => {
+    console.log('33', user.attributes.sub);
+    console.log('34', route.params?.id);
+    if (!route.params?.id) {
+      return;
+    }
+    try {
+      const response = await API.graphql(
+        graphqlOperation(
+          listPortfolioCoins, 
+          { filter: {
+            and: {
+              coinId: { eq: route.params?.id },
+              userId: { eq: user.attributes.sub }
+            }
+          }}
+        )
+      )
+      console.log('res11:', response.data.listPortfolioCoins.items.toString())
+      if (response.data.listPortfolioCoins.items.length > 0) {
+        setPortfolioCoin(response.data.listPortfolioCoins.items[0])
+        console.log('portfolio212', portfolioCoin);
+      }
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchCoinData()
+    fetchPortfolioCoinData()
+  }, [])
 
   const onBuy = () => {
-    navigation.navigate('CoinExchange', { isBuy: true, coinData });
+    navigation.navigate('CoinExchange', { isBuy: true, coin, portfolioCoin });
   }
 
   const onSell = () => {
-    navigation.navigate('CoinExchange', { isBuy: false, coinData });
+    navigation.navigate('CoinExchange', { isBuy: false, coin, portfolioCoin });
   }
 
   const onStarPressed = () => {
@@ -39,14 +79,18 @@ const CoinDetailsScreen = () => {
     setStarActive(prevState => !prevState)
   }
 
+  if (!coin) {
+    return <ActivityIndicator />
+  }
+
   return (
     <ElementView style={styles.root}>
       <ElementView style={styles.topContainer}>
         <ElementView style={styles.left}>
-          <Image style={styles.image} source={{ uri: coinData.image}} />
+          <Image style={styles.image} source={{ uri: coin.image}} />
           <ElementView>
-            <Text style={styles.name}>{coinData.name}</Text>
-            <Text style={styles.symbol}>{coinData.symbol}</Text>
+            <Text style={styles.name}>{coin.name}</Text>
+            <Text style={styles.symbol}>{coin.symbol}</Text>
           </ElementView>
         </ElementView>
         <ElementView style={{alignItems: 'flex-end'}}>
@@ -61,36 +105,43 @@ const CoinDetailsScreen = () => {
       <ElementView style={styles.row}>
         <ElementView style={styles.valueContainer}>
           <Text style={styles.label}>Current price</Text>
-          <PreciseMoney value={coinData.currentPrice} style={styles.value} />
+          <PreciseMoney value={coin.currentPrice} style={styles.value} />
         </ElementView>
 
         <ElementView style={{flexDirection: 'row'}}>
           <ElementView style={styles.valueContainer}>
             <Text style={styles.label}>1 hour</Text>
-            <PercentageChange value={coinData.valueChange24H} />
+            <PercentageChange value={coin.valueChange24H} />
           </ElementView>
 
           <ElementView style={styles.valueContainer}>
             <Text style={styles.label}>1 day</Text>
-            <PercentageChange value={coinData.valueChange1D} />
+            <PercentageChange value={coin.valueChange1D} />
           </ElementView>
 
           <ElementView style={styles.valueContainer}>
             <Text style={styles.label}>7 days</Text>
-            <PercentageChange value={coinData.valueChange7D} />
+            <PercentageChange value={coin.valueChange7D} />
           </ElementView>
         </ElementView>
       </ElementView>
 
-      <CoinPriceGraph dataString={priceHistory} />
+      {coin?.priceHistoryString 
+        && <CoinPriceGraph dataString={coin.priceHistoryString} />}
 
       <ElementView style={[styles.row, {justifyContent: 'space-evenly'}]}>
         <Text style={styles.positionLabel}>Position</Text>
-        <Text>
-          {coinData.amount} {coinData.symbol}
-          {' '}
-          (<PreciseMoney value={coinData.currentPrice * coinData.amount} />)
-        </Text>
+        <ElementView>
+          <Text>
+            {portfolioCoin?.amount.toLocaleString('en-US') || 0} {coin.symbol}
+            {/* {' '} */}
+            {/* (<PreciseMoney value={coin.currentPrice * (portfolioCoin?.amount || 0)} />) */}
+          </Text>
+          <ElementView style={styles.rowText}>
+            <PreciseMoney value={coin.currentPrice * (portfolioCoin?.amount || 0)} />
+            <Text> USD</Text>
+          </ElementView>
+        </ElementView>
       </ElementView>
 
       <ElementView style={[styles.row, { marginTop: 'auto' }]}>

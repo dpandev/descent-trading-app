@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
-import { StyleSheet} from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { ActivityIndicator, StyleSheet} from 'react-native';
 import PageHeader from '../../components/PageHeader';
 import { View } from '../../components/Themed'
 import FollowingScreen from '../FollowingScreen';
 import ProfileScreen from '../ProfileScreen';
 import RankingsScreen from '../RankingsScreen';
+import { AuthenticatedUserContext } from '../../navigation/AuthenticatedUserProvider';
 
 export default function TabFourScreen() {
-  const [user, setUser] = useState({
+  const { user } = useContext(AuthenticatedUserContext)
+  const [ userx, setUserx] = useState({
     id: '1',
     username: "Mr. Anderson",
     email: 'anderson@matrix.com',
@@ -25,9 +27,9 @@ export default function TabFourScreen() {
     followers: 12032,
     createdAt: 'May 2022',
   })
-
+  console.log(user)
   const componentsToRender = {
-    component1: <ProfileScreen user={user} />,
+    component1: <ProfileScreen userId={user.attributes.sub} />,
     component2: <FollowingScreen />,
     component3: <RankingsScreen />,
   }
@@ -49,6 +51,10 @@ export default function TabFourScreen() {
       }
     ],
     setRenderComp: setReComp,
+  }
+
+  if (!user) {
+    return <ActivityIndicator />
   }
 
   return (

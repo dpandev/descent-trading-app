@@ -15,6 +15,7 @@ export default function RootNavigator() {
       })
       if (loginUser) {
         console.log('user is logged in: ', loginUser);
+        setUser(loginUser)
       } else {
         console.log('not working chief');
       }

@@ -21,21 +21,27 @@ const styles = StyleSheet.create({
     height: 200,
     resizeMode: 'contain',
   },
-
+  input: {
+    color: '#6338F1',
+    padding: 5,
+    fontSize: 18,
+  },
   inputsContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-between',
     width: '100%',
     alignItems: 'center',
   },
   inputContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
+    width: '100%',
+    maxWidth: 230,
     justifyContent: 'space-between',
     borderWidth: 1,
     borderColor: '#b1b1b1',
     borderRadius: 8,
-    padding: 15,
-    flex: 1,
+    padding: 5,
+    // flex: 1,
     margin: 20,
   },
   button: {

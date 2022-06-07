@@ -1,50 +1,71 @@
 import { StyleSheet, Image } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, ModifiedButtonInverted } from '../../components/Themed'
 import { Networth } from '../../components/FormattedTextElements'
 import { useNavigation } from '@react-navigation/native'
+import { API, graphqlOperation } from 'aws-amplify'
+import { getUser } from '../../src/graphql/queries'
 
-export default function ProfileScreen({user}: any) {
+export default function ProfileScreen({userId}: any) {
   const navigation = useNavigation()
   const [settingsActive, setSettingsActive] = useState(false)
+  const [user, setUser] = useState(null)
 
   const onSettingsPressed = () => {
-    console.log("Settings")
     navigation.navigate('Settings')
   }
 
+  useEffect(() => {
+    console.log(userId);
+    const fetchUser = async () => {
+      try {
+        const response = await API.graphql(
+          graphqlOperation(
+            getUser,
+            {id: userId }
+          )
+        )
+        console.log('res', response);
+        setUser(response.data.getUser)
+      } catch(error) {
+        console.log(error);
+      }
+    }
+    fetchUser()
+  }, [])
+  // console.log(user)
   return (
     <View style={styles.root}>
       <View style={styles.profileContainer}>
         <Image 
-          source={{ uri: user.profileImg }} 
+          source={{ uri: user?.image }} 
           width={50}
           height={50}
           style={styles.profileImage}
         />
         <View style={styles.profileInfo}>
-          <Text style={styles.profileName}>{user.username}</Text>
+          <Text style={styles.profileName}>{user?.name}</Text>
           <Text style={styles.profileText}>
             Net Worth: {''}
-            <Networth value={user.assets} />
+            {/* <Networth value={user?.networth} /> */}
           </Text>
           <Text style={styles.profileText}>
             Total Trades: {''}
-            <Text style={styles.profileTextData}>{user.totalTrades.toLocaleString('en-US')}</Text>
+            {/* <Text style={styles.profileTextData}>{user?.totalTrades.toLocaleString('en-US')}</Text> */}
           </Text>
           <Text style={styles.profileText}>
             Last Trade: {''}
             <Text style={styles.profileTextData}>
-              {user.lastTrade.tradePair[0]}{' - '}{user.lastTrade.tradePair[1]}
+              {/* {user?.lastTrade?.tradePair[0]}{' - '}{user?.lastTrade?.tradePair[1]} */}
             </Text>
           </Text>
           <Text style={styles.profileText}>
             Followers: {''}
-            <Text style={styles.profileTextData}>{user.followers.toLocaleString('en-US')}</Text>
+            {/* <Text style={styles.profileTextData}>{user?.followers?.length.toLocaleString('en-US')}</Text> */}
           </Text>
           <Text style={styles.profileText}>
             Member Since: {''}
-            <Text style={styles.profileTextData}>{user.createdAt}</Text>
+            {/* <Text style={styles.profileTextData}>{user?.createdAt}</Text> */}
           </Text>
         </View>
       </View>

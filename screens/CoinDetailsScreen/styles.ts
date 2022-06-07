@@ -33,7 +33,9 @@ const styles = StyleSheet.create({
   symbol: {
     color: '#6b6b6b',
   },
-
+  rowText: {
+    flexDirection: 'row',
+  },
   row: {
     flexDirection: 'row',
     width: '100%',
