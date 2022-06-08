@@ -1,6 +1,7 @@
 import React from 'react'
 import SimpleColorButton from '../SimpleColorButton'
 import { Auth } from 'aws-amplify'
+import { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth/lib/types";
 
 export default function SocialLoginButtons() {
 
@@ -11,7 +12,7 @@ export default function SocialLoginButtons() {
   const onSignInGoogle = async () => {
     // console.warn('Sign In Google')
     console.log('google signin');
-    await Auth.federatedSignIn({ provider: "Google" })
+    await Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Google })
   }
 
   const onSignInFacebook = () => {

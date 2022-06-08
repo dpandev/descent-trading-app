@@ -1,26 +1,31 @@
-# This "input" configures a global authorization rule to enable public access to
-# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
-input AMPLIFY {
-  globalAuthRule: AuthRule = { allow: public }
-} # FOR TESTING ONLY!
-type User @model(mutations: null) {
+type User
+  @model(mutations: null)
+  @key(
+    name: "byNetworth"
+    fields: ["networth"]
+    queryField: "getUsersByNetworth"
+  ) {
   id: ID!
   email: String!
   name: String
   image: String
   networth: Float!
+  totalTrades: Float!
 
-  portfolioCoins: [PortfolioCoin] @hasMany
+  portfolioCoins: [PortfolioCoin] @connection(keyName: "byUser", fields: ["id"])
 }
 
-type PortfolioCoin @model(mutations: null) {
+type PortfolioCoin
+  @model(mutations: null)
+  @key(name: "byUser", fields: ["userId"]) {
   id: ID!
   amount: Float!
 
-  userId: ID! @index(name: "byUser", sortKeyFields: ["id", "amount"])
+  userId: ID!
+  user: User @connection(fields: ["userId"])
 
   coinId: ID!
-  coin: Coin @hasOne(fields: ["coinId"])
+  coin: Coin @connection(fields: ["coinId"])
 }
 
 type Coin @model(mutations: null) {
@@ -31,7 +36,17 @@ type Coin @model(mutations: null) {
   image: String
   currentPrice: Float!
   valueChange24H: Float!
-  valueChange1D: Float!
+  valueChange1H: Float!
   valueChange7D: Float!
   priceHistoryString: String
+}
+
+type Mutation {
+  exchangeCoins(
+    coinId: ID!
+    isBuy: Boolean!
+    amount: Float!
+    usdPortfolioCoinId: ID
+    coinPortfolioCoinId: ID
+  ): Boolean! @function(name: "ExchangeCoinsTrade-${env}")
 }

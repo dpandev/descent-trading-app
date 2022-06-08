@@ -28,6 +28,14 @@ const abbreviateNumber = (num: any, fixed: any) => {
   return e;
 }
 
+export function AbbreviateNum({ value, style = {} }: Props) {
+  return (
+    <Text style={[style, styles.green]}>
+      {abbreviateNumber(value, 0)}
+    </Text>
+  )
+}
+
 export function Networth({ value, style = {} }: Props ) {
   return (
     <Text style={[style, value > 0 ? styles.green : styles.red]}>

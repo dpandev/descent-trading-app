@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "api": {
+      "vctrader": [
+        "Query",
+        "Mutation"
+      ]
+    }
+  },
+  "lambdaLayers": [],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "test",
+      "environmentVariableName": "test"
+    }
+  ]
+}

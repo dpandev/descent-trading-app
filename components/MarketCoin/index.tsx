@@ -10,7 +10,8 @@ export interface MarketCoinProps {
     name: string,
     symbol: string,
     valueChange24H: number,
-    valueUSD: number,
+    currentPrice: number,
+    id: string,
   }
 }
 
@@ -24,13 +25,14 @@ export default function MarketCoin (props: MarketCoinProps) {
       name,
       symbol,
       valueChange24H,
-      valueUSD,
+      currentPrice,
+      id
     },
   } = props;
 
   const onPressed = () => {
     console.log('pressed market item')
-    navigation.navigate('CoinDetails')
+    navigation.navigate('CoinDetails', { id })
   }
 
   return (
@@ -48,7 +50,7 @@ export default function MarketCoin (props: MarketCoinProps) {
         </ElementView>
       </ElementView>
       <ElementView style={{alignItems: 'flex-end'}}>
-        <PreciseMoney value={valueUSD} style={styles.value} />
+        <PreciseMoney value={currentPrice} style={styles.value} />
         <PercentageChange value={valueChange24H} />
       </ElementView>
     </ModifiedListItemButton>

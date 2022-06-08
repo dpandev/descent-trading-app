@@ -8,28 +8,29 @@ import RankingsScreen from '../RankingsScreen';
 import { AuthenticatedUserContext } from '../../navigation/AuthenticatedUserProvider';
 
 export default function TabFourScreen() {
-  const { user } = useContext(AuthenticatedUserContext)
-  const [ userx, setUserx] = useState({
-    id: '1',
-    username: "Mr. Anderson",
-    email: 'anderson@matrix.com',
-    profileImg:'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/1.jpg',
-    assets: 12312,
-    totalTrades: 1320,
-    lastTrade: {
-      id: 'tuid1',
-      tradePair: ['BTC', 'USD'],
-      tradeAmount: '+89.923',
-      exchangeAmount: '6.13',
-      percentGrowth: -2.4,
-      color: '#F8931A',
-    },
-    followers: 12032,
-    createdAt: 'May 2022',
-  })
-  console.log(user)
+  const { theUser } = useContext(AuthenticatedUserContext)
+  // const [ user, setUser] = useState({
+  //   id: '1',
+  //   name: "Mr. Anderson",
+  //   email: 'anderson@matrix.com',
+  //   profileImg:'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/1.jpg',
+  //   networth: 12312,
+  //   totalTrades: 1320,
+  //   lastTrade: {
+  //     id: 'tuid1',
+  //     tradePair: ['BTC', 'USD'],
+  //     tradeAmount: '+89.923',
+  //     exchangeAmount: '6.13',
+  //     percentGrowth: -2.4,
+  //     color: '#F8931A',
+  //   },
+  //   followers: 12032,
+  //   createdAt: 'May 2022',
+  // })
+  const [user, setUser] = useState(theUser)
+  console.log('tabfour', user)
   const componentsToRender = {
-    component1: <ProfileScreen userId={user.attributes.sub} />,
+    component1: <ProfileScreen user={user} />,
     component2: <FollowingScreen />,
     component3: <RankingsScreen />,
   }

@@ -15,7 +15,7 @@ import { listPortfolioCoins } from '../../src/graphql/queries';
 import { exchangeCoins } from './mutations';
 import { AuthenticatedUserContext } from '../../navigation/AuthenticatedUserProvider';
 
-const USD_COIN_ID = '9179035d-fc10-49c6-bdcd-6ad769385a59';//TODO remove
+const USD_COIN_ID = 'usd';//TODO remove
 
 const CoinExchangeScreen = () => {
   const [activeButton, setActiveButton] = useState(false)
@@ -26,9 +26,9 @@ const CoinExchangeScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const maxUSD = 100000;
-  const { user } = useContext(AuthenticatedUserContext)
-  const userId = user.attributes.sub
-  console.log('userIDIDIDID', user.attributes.sub);
+  const { theUser } = useContext(AuthenticatedUserContext)
+  const userId = theUser.id
+  console.log('userIDIDIDID', userId);
 
   const navigation = useNavigation();
   const route = useRoute();

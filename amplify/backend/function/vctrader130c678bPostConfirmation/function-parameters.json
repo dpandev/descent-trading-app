@@ -3,15 +3,15 @@
   "modules": [
     "custom"
   ],
-  "parentResource": "vctrader75e8f239",
-  "functionName": "vctrader75e8f239PostConfirmation",
-  "resourceName": "vctrader75e8f239PostConfirmation",
+  "parentResource": "vctrader130c678b",
+  "functionName": "vctrader130c678bPostConfirmation",
+  "resourceName": "vctrader130c678bPostConfirmation",
   "parentStack": "auth",
   "triggerEnvs": "[]",
   "triggerDir": "C:\\snapshot\\repo\\build\\node_modules\\@aws-amplify\\amplify-category-auth\\provider-utils\\awscloudformation\\triggers\\PostConfirmation",
   "triggerTemplate": "PostConfirmation.json.ejs",
   "triggerEventPath": "PostConfirmation.event.json",
-  "roleName": "vctrader75e8f239PostConfirmation",
+  "roleName": "vctrader130c678bPostConfirmation",
   "skipEdit": true,
   "enableCors": false
 }

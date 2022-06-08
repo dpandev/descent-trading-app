@@ -5,11 +5,11 @@ import { Auth } from 'aws-amplify'
 import { AuthenticatedUserContext } from '../../navigation/AuthenticatedUserProvider'
 
 export default function SettingsScreen() {
-  const { setUser } = useContext(AuthenticatedUserContext)
+  const { setTheUser } = useContext(AuthenticatedUserContext)
   const [activeButton, setActiveButton] = useState(false)
 
   const onSignOut = async () => {
-    await Auth.signOut().then(setUser(null))
+    await Auth.signOut().then(setTheUser(null))
   }
 
   return (

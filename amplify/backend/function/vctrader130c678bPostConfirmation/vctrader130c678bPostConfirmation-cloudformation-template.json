@@ -67,12 +67,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "vctrader75e8f239PostConfirmation",
+            "vctrader130c678bPostConfirmation",
             {
               "Fn::Join": [
                 "",
                 [
-                  "vctrader75e8f239PostConfirmation",
+                  "vctrader130c678bPostConfirmation",
                   "-",
                   {
                     "Ref": "env"
@@ -122,12 +122,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "vctrader75e8f239PostConfirmation",
+            "vctrader130c678bPostConfirmation",
             {
               "Fn::Join": [
                 "",
                 [
-                  "vctrader75e8f239PostConfirmation",
+                  "vctrader130c678bPostConfirmation",
                   "-",
                   {
                     "Ref": "env"

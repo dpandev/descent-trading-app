@@ -1,4 +1,3 @@
-/* tslint:disable */
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
@@ -10,6 +9,7 @@ export const getUser = /* GraphQL */ `
       name
       image
       networth
+      totalTrades
       portfolioCoins {
         items {
           id
@@ -18,7 +18,6 @@ export const getUser = /* GraphQL */ `
           coinId
           createdAt
           updatedAt
-          userPortfolioCoinsId
         }
         nextToken
       }
@@ -40,6 +39,7 @@ export const listUsers = /* GraphQL */ `
         name
         image
         networth
+        totalTrades
         portfolioCoins {
           nextToken
         }
@@ -56,6 +56,19 @@ export const getPortfolioCoin = /* GraphQL */ `
       id
       amount
       userId
+      user {
+        id
+        email
+        name
+        image
+        networth
+        totalTrades
+        portfolioCoins {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       coinId
       coin {
         id
@@ -65,7 +78,7 @@ export const getPortfolioCoin = /* GraphQL */ `
         image
         currentPrice
         valueChange24H
-        valueChange1D
+        valueChange1H
         valueChange7D
         priceHistoryString
         createdAt
@@ -73,7 +86,6 @@ export const getPortfolioCoin = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      userPortfolioCoinsId
     }
   }
 `;
@@ -88,6 +100,16 @@ export const listPortfolioCoins = /* GraphQL */ `
         id
         amount
         userId
+        user {
+          id
+          email
+          name
+          image
+          networth
+          totalTrades
+          createdAt
+          updatedAt
+        }
         coinId
         coin {
           id
@@ -97,7 +119,7 @@ export const listPortfolioCoins = /* GraphQL */ `
           image
           currentPrice
           valueChange24H
-          valueChange1D
+          valueChange1H
           valueChange7D
           priceHistoryString
           createdAt
@@ -105,7 +127,6 @@ export const listPortfolioCoins = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        userPortfolioCoinsId
       }
       nextToken
     }
@@ -121,7 +142,7 @@ export const getCoin = /* GraphQL */ `
       image
       currentPrice
       valueChange24H
-      valueChange1D
+      valueChange1H
       valueChange7D
       priceHistoryString
       createdAt
@@ -144,9 +165,41 @@ export const listCoins = /* GraphQL */ `
         image
         currentPrice
         valueChange24H
-        valueChange1D
+        valueChange1H
         valueChange7D
         priceHistoryString
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getUsersByNetworth = /* GraphQL */ `
+  query GetUsersByNetworth(
+    $networth: Float
+    $sortDirection: ModelSortDirection
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    getUsersByNetworth(
+      networth: $networth
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        email
+        name
+        image
+        networth
+        totalTrades
+        portfolioCoins {
+          nextToken
+        }
         createdAt
         updatedAt
       }

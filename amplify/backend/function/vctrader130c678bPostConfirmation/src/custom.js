@@ -22,7 +22,8 @@ exports.handler = async (event, context) => {
     'id': { S: event.request.userAttributes.sub },
     '__typename': { S: 'User' },
     'email': { S: event.request.userAttributes.email },
-    'networth': { N: '100000.0' },
+    'networth': { N: '250000.0' },
+    'totalTrades': { N: '0' },
     'createdAt': { S: date.toISOString() },
     'updatedAt': { S: date.toISOString() },
   }
@@ -51,7 +52,7 @@ exports.handler = async (event, context) => {
     'id': { S: `${event.request.userAttributes.sub}-usd` },
     '__typename': { S: 'PortfolioCoin' },
     'userId': { S: event.request.userAttributes.sub },
-    'amount': { N: '150000.0' },
+    'amount': { N: '250000.0' },
     'coinId': { S: process.env.USD_COIN_ID},
     'createdAt': { S: date.toISOString() },
     'updatedAt': { S: date.toISOString() },

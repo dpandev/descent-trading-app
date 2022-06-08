@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "vctrader75e8f239_identitypool_75e8f239",
+    "identityPoolName": "vctrader130c678b_identitypool_130c678b",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "vctrad75e8f239",
-    "userPoolName": "vctrader75e8f239_userpool_75e8f239",
+    "resourceNameTruncated": "vctrad130c678b",
+    "userPoolName": "vctrader130c678b_userpool_130c678b",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -26,24 +26,31 @@
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
+      "name",
+      "picture",
       "email"
     ],
     "userpoolClientReadAttributes": [
-      "email"
+      "email",
+      "name",
+      "picture"
     ],
-    "userpoolClientLambdaRole": "vctrad75e8f239_userpoolclient_lambda_role",
-    "userpoolClientSetAttributes": false,
-    "sharedId": "75e8f239",
-    "resourceName": "vctrader75e8f239",
+    "userpoolClientLambdaRole": "vctrad130c678b_userpoolclient_lambda_role",
+    "userpoolClientSetAttributes": true,
+    "sharedId": "130c678b",
+    "resourceName": "vctrader130c678b",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "manual",
     "hostedUI": true,
+    "usernameAttributes": [
+      "email"
+    ],
     "triggers": {
       "PostConfirmation": [
         "custom"
       ]
     },
-    "hostedUIDomainName": "vctrader75e8f239-75e8f239",
+    "hostedUIDomainName": "vctrader130c678b-130c678b",
     "authProvidersUserPool": [
       "Google"
     ],
@@ -68,7 +75,7 @@
     "dependsOn": [
       {
         "category": "function",
-        "resourceName": "vctrader75e8f239PostConfirmation",
+        "resourceName": "vctrader130c678bPostConfirmation",
         "triggerProvider": "Cognito",
         "attributes": [
           "Arn",
@@ -85,10 +92,8 @@
     "parentStack": {
       "Ref": "AWS::StackId"
     },
-    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"vctrader75e8f239PostConfirmation\"\n  }\n]",
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"vctrader130c678bPostConfirmation\"\n  }\n]",
     "permissions": [],
-    "hostedUIProviderCreds": "[{\"ProviderName\":\"Google\"}]",
-    "googleClientId": "935678650643-vjkokvh386ee5vtc4aie4hjh77i6cfeb.apps.googleusercontent.com",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"implicit\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"exp://192.168.0.28:19000/\"],\"LogoutURLs\":[\"exp://192.168.0.28:19000/\"]}"
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"exp://192.168.0.28:19000/\"],\"LogoutURLs\":[\"exp://192.168.0.28:19000/\"]}"
   }
 }

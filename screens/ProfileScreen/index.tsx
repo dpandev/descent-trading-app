@@ -1,39 +1,17 @@
 import { StyleSheet, Image } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { View, Text, ModifiedButtonInverted } from '../../components/Themed'
-import { Networth } from '../../components/FormattedTextElements'
+import { AbbreviateNum, Networth } from '../../components/FormattedTextElements'
 import { useNavigation } from '@react-navigation/native'
-import { API, graphqlOperation } from 'aws-amplify'
-import { getUser } from '../../src/graphql/queries'
 
-export default function ProfileScreen({userId}: any) {
+export default function ProfileScreen({user}: any) {
   const navigation = useNavigation()
   const [settingsActive, setSettingsActive] = useState(false)
-  const [user, setUser] = useState(null)
 
   const onSettingsPressed = () => {
     navigation.navigate('Settings')
   }
 
-  useEffect(() => {
-    console.log(userId);
-    const fetchUser = async () => {
-      try {
-        const response = await API.graphql(
-          graphqlOperation(
-            getUser,
-            {id: userId }
-          )
-        )
-        console.log('res', response);
-        setUser(response.data.getUser)
-      } catch(error) {
-        console.log(error);
-      }
-    }
-    fetchUser()
-  }, [])
-  // console.log(user)
   return (
     <View style={styles.root}>
       <View style={styles.profileContainer}>
@@ -47,10 +25,11 @@ export default function ProfileScreen({userId}: any) {
           <Text style={styles.profileName}>{user?.name}</Text>
           <Text style={styles.profileText}>
             Net Worth: {''}
-            {/* <Networth value={user?.networth} /> */}
+            <Networth value={user?.networth} />
           </Text>
           <Text style={styles.profileText}>
             Total Trades: {''}
+            <AbbreviateNum value={user?.totalTrades} style={styles.profileTextData}/>
             {/* <Text style={styles.profileTextData}>{user?.totalTrades.toLocaleString('en-US')}</Text> */}
           </Text>
           <Text style={styles.profileText}>
@@ -61,6 +40,7 @@ export default function ProfileScreen({userId}: any) {
           </Text>
           <Text style={styles.profileText}>
             Followers: {''}
+            {/* <AbbreviateNum value={user?.followers.length} style={styles.profileTextData}/> */}
             {/* <Text style={styles.profileTextData}>{user?.followers?.length.toLocaleString('en-US')}</Text> */}
           </Text>
           <Text style={styles.profileText}>

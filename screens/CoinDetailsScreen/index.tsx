@@ -11,7 +11,7 @@ import { getCoin, listPortfolioCoins } from '../../src/graphql/queries';
 import { AuthenticatedUserContext } from '../../navigation/AuthenticatedUserProvider';
 
 const CoinDetailsScreen = () => {
-  const { user } = useContext(AuthenticatedUserContext)
+  const { theUser } = useContext(AuthenticatedUserContext)
   const [starActive, setStarActive] = useState(false)//todo replace with data
   const [buyActive, setBuyActive] = useState(false)
   const [sellActive, setSellActive] = useState(false)
@@ -29,12 +29,12 @@ const CoinDetailsScreen = () => {
       const response = await API.graphql(graphqlOperation(getCoin, { id: route.params.id }))
       setCoin(response.data.getCoin)
     } catch(error) {
-      console.log(error);
+      console.log('error2', error);
     }
   }
 
   const fetchPortfolioCoinData = async () => {
-    console.log('33', user.attributes.sub);
+    console.log('mr.tweedy:', theUser.id)
     console.log('34', route.params?.id);
     if (!route.params?.id) {
       return;
@@ -45,25 +45,27 @@ const CoinDetailsScreen = () => {
           listPortfolioCoins, 
           { filter: {
             and: {
-              coinId: { eq: route.params?.id },
-              userId: { eq: user.attributes.sub }
+              coinId: { eq: route.params.id },
+              userId: { eq: theUser.id }
             }
           }}
         )
       )
-      console.log('res11:', response.data.listPortfolioCoins.items.toString())
+      // console.log('res11:', response.data.listPortfolioCoins.items.toString())
+      console.log('wow');
       if (response.data.listPortfolioCoins.items.length > 0) {
         setPortfolioCoin(response.data.listPortfolioCoins.items[0])
-        console.log('portfolio212', portfolioCoin);
+        console.log('portfolio212' + portfolioCoin + 'milk');
       }
     } catch(error) {
-      console.log(error);
+      console.log('error3', error);
     }
   }
 
   useEffect(() => {
     fetchCoinData()
     fetchPortfolioCoinData()
+    console.log('running a marathon');
   }, [])
 
   const onBuy = () => {
@@ -111,12 +113,12 @@ const CoinDetailsScreen = () => {
         <ElementView style={{flexDirection: 'row'}}>
           <ElementView style={styles.valueContainer}>
             <Text style={styles.label}>1 hour</Text>
-            <PercentageChange value={coin.valueChange24H} />
+            <PercentageChange value={coin.valueChange1H} />
           </ElementView>
 
           <ElementView style={styles.valueContainer}>
             <Text style={styles.label}>1 day</Text>
-            <PercentageChange value={coin.valueChange1D} />
+            <PercentageChange value={coin.valueChange24H} />
           </ElementView>
 
           <ElementView style={styles.valueContainer}>

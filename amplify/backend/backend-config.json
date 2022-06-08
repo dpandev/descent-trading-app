@@ -1,12 +1,30 @@
 {
+  "api": {
+    "vctrader": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 7
+            }
+          },
+          "additionalAuthenticationProviders": []
+        }
+      }
+    }
+  },
   "auth": {
-    "vctrader75e8f239": {
+    "vctrader130c678b": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "vctrader75e8f239PostConfirmation",
+          "resourceName": "vctrader130c678bPostConfirmation",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",
@@ -19,7 +37,9 @@
         "socialProviders": [
           "GOOGLE"
         ],
-        "usernameAttributes": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
         "signupAttributes": [
           "EMAIL"
         ],
@@ -38,28 +58,26 @@
     }
   },
   "function": {
-    "vctrader75e8f239PostConfirmation": {
+    "vctrader130c678bPostConfirmation": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
-    }
-  },
-  "api": {
-    "vctrader": {
-      "service": "AppSync",
+    },
+    "ExchangeCoinsTrade": {
+      "build": true,
       "providerPlugin": "awscloudformation",
-      "dependsOn": [],
-      "output": {
-        "authConfig": {
-          "defaultAuthentication": {
-            "authenticationType": "API_KEY",
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
-            }
-          },
-          "additionalAuthenticationProviders": []
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "api",
+          "resourceName": "vctrader",
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ]
         }
-      }
+      ]
     }
   }
 }

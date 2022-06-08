@@ -6,10 +6,10 @@ import { Auth } from 'aws-amplify';
 import { AuthenticatedUserContext } from '../../navigation/AuthenticatedUserProvider';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
-  const { user } = useContext(AuthenticatedUserContext)
+  const { theUser } = useContext(AuthenticatedUserContext)
 
   const test = async () => {
-    console.log('user:', user);
+    console.log('user:', theUser.id);
     // console.log('1', await Auth.currentAuthenticatedUser());
     // console.log('2', await Auth.currentSession());
     // console.log('3', await Auth.currentUserInfo());
