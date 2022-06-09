@@ -112,6 +112,20 @@ const buyCoin = async (
         TableName: process.env.PORTFOLIO_COIN_TABLE
     }
     await ddb.putItem(params1).promise();
+
+    //increase totalTrades attribute for user
+    const params2 = {
+        Key: {
+            "id": {S: `${userId}`}
+        },
+        UpdateExpression: "set totalTrades = totalTrades + :val",
+        ExpressionAttributeValues: {
+            ':val': { N: '1' }
+        },
+        TableName: process.env.USER_TABLE
+    }
+
+    await ddb.updateItem(params2).promise();
 }
 
 const sellCoin = async (
@@ -153,6 +167,19 @@ const sellCoin = async (
         TableName: process.env.PORTFOLIO_COIN_TABLE
     }
     await ddb.putItem(params1).promise();
+
+    //increase totalTrades attribute for user
+    const params2 = {
+        Key: {
+            "id": {S: `${userId}`}
+        },
+        UpdateExpression: "set totalTrades = totalTrades + :val",
+        ExpressionAttributeValues: {
+            ':val': { N: '1' }
+        },
+        TableName: process.env.USER_TABLE
+    }
+    await ddb.updateItem(params2).promise();
 }
 
 /**

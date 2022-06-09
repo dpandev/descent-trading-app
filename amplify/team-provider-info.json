@@ -25,7 +25,7 @@
         },
         "vctrader052b0200": {
           "deploymentBucketName": "amplify-vctrader-dev-11831-deployment",
-          "s3Key": "amplify-builds/vctrader052b0200-565a477766616462537a-build.zip"
+          "s3Key": "amplify-builds/vctrader052b0200-6a5a796944746d5a4a6b-build.zip"
         }
       }
     }
