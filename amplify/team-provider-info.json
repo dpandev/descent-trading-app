@@ -21,12 +21,11 @@
       "function": {
         "vctrader130c678bPostConfirmation": {
           "deploymentBucketName": "amplify-vctrader-dev-11831-deployment",
-          "s3Key": "amplify-builds/vctrader130c678bPostConfirmation-726f554c453955376748-build.zip"
+          "s3Key": "amplify-builds/vctrader130c678bPostConfirmation-6f5736792b4137356f57-build.zip"
         },
-        "ExchangeCoinsTrade": {
+        "vctrader052b0200": {
           "deploymentBucketName": "amplify-vctrader-dev-11831-deployment",
-          "s3Key": "amplify-builds/ExchangeCoinsTrade-64305042417a454e5274-build.zip",
-          "test": "testvalue"
+          "s3Key": "amplify-builds/vctrader052b0200-565a477766616462537a-build.zip"
         }
       }
     }

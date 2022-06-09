@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "api": {
+      "vctrader": [
+        "Query",
+        "Mutation"
+      ]
+    },
+    "auth": {
+      "vctrader130c678b": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

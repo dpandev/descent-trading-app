@@ -7,7 +7,16 @@ import Navigation from './navigation';
 
 import { Amplify } from 'aws-amplify'
 import awsconfig from './src/aws-exports'
-Amplify.configure(awsconfig)
+Amplify.configure({
+  ...awsconfig,
+  // API: {
+  //   graphql_headers: async () => {
+  //   const session = await await Amplify.Auth.currentSession()
+  //   return ({
+  //       'Authorization': session.getIdToken().getJwtToken()
+  //   })}
+  // }
+})
 
 export default function App() {
   const isLoadingComplete = useCachedResources();

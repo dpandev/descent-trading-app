@@ -26,7 +26,7 @@ export type AmplifyDependentResourcesAttributes = {
             "LambdaExecutionRole": "string",
             "Region": "string"
         },
-        "ExchangeCoinsTrade": {
+        "vctrader052b0200": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",

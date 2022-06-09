@@ -34,33 +34,29 @@ const CoinDetailsScreen = () => {
   }
 
   const fetchPortfolioCoinData = async () => {
-    console.log('mr.tweedy:', theUser.id)
-    console.log('34', route.params?.id);
     if (!route.params?.id) {
       return;
     }
     try {
       const response = await API.graphql(
-        graphqlOperation(
+        graphqlOperation(//seems fixed, now need to refresh component/update state, fix position display
           listPortfolioCoins, 
           { filter: {
             and: {
-              coinId: { eq: route.params.id },
+              coinId: { eq: route.params?.id},
               userId: { eq: theUser.id }
             }
           }}
         )
       )
-      // console.log('res11:', response.data.listPortfolioCoins.items.toString())
-      console.log('wow');
       if (response.data.listPortfolioCoins.items.length > 0) {
         setPortfolioCoin(response.data.listPortfolioCoins.items[0])
-        console.log('portfolio212' + portfolioCoin + 'milk');
       }
     } catch(error) {
       console.log('error3', error);
     }
   }
+  
 
   useEffect(() => {
     fetchCoinData()
@@ -77,7 +73,6 @@ const CoinDetailsScreen = () => {
   }
 
   const onStarPressed = () => {
-    console.log('star pressed');
     setStarActive(prevState => !prevState)
   }
 
@@ -135,7 +130,7 @@ const CoinDetailsScreen = () => {
         <Text style={styles.positionLabel}>Position</Text>
         <ElementView>
           <Text>
-            {portfolioCoin?.amount.toLocaleString('en-US') || 0} {coin.symbol}
+            {portfolioCoin?.amount?.toLocaleString('en-US') || 0} {coin.symbol}
             {/* {' '} */}
             {/* (<PreciseMoney value={coin.currentPrice * (portfolioCoin?.amount || 0)} />) */}
           </Text>

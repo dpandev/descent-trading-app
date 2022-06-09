@@ -2,11 +2,13 @@
 	API_VCTRADER_GRAPHQLAPIENDPOINTOUTPUT
 	API_VCTRADER_GRAPHQLAPIIDOUTPUT
 	API_VCTRADER_GRAPHQLAPIKEYOUTPUT
+	AUTH_VCTRADER130C678B_USERPOOLID
 	ENV
 	REGION
 Amplify Params - DO NOT EDIT */
 
 const { DynamoDB } = require('aws-sdk');
+
 
 const ddb = new DynamoDB();
 
@@ -167,8 +169,10 @@ const resolvers = {
                 amount,
                 usdPortfolioCoinId,
                 coinPortfolioCoinId,
+                userId,
             } = ctx.arguments;
-            const userId = ctx.identity.sub;
+            //const userId = ctx.identity.sub;
+            console.log('ctxInfo', ctx)
 
             const usdAmount = !usdPortfolioCoinId ? 0 : await getUsdAmount(usdPortfolioCoinId, userId)
             const coinAmount = !coinPortfolioCoinId ? 0 : await getCoinAmount(coinPortfolioCoinId, userId)
@@ -194,6 +198,7 @@ const resolvers = {
 }
 
 exports.handler = async (event) => {
+    console.log('event901', event)
     const typeHandler = resolvers[event.typeName];
     if (typeHandler) {
         const resolver = typeHandler[event.fieldName];

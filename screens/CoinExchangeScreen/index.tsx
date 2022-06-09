@@ -28,7 +28,6 @@ const CoinExchangeScreen = () => {
   const maxUSD = 100000;
   const { theUser } = useContext(AuthenticatedUserContext)
   const userId = theUser.id
-  console.log('userIDIDIDID', userId);
 
   const navigation = useNavigation();
   const route = useRoute();
@@ -36,7 +35,6 @@ const CoinExchangeScreen = () => {
   const isBuy = route?.params?.isBuy;
   const coin = route?.params?.coin;
   const portfolioCoin = route?.params?.portfolioCoin;
-  console.log('portfolio22', portfolioCoin);
 
   const getUSDPortfolioCoin = async () => {
     try {
@@ -51,11 +49,8 @@ const CoinExchangeScreen = () => {
           }
         )
       )
-      console.log('response', response.data.listPortfolioCoins.items[0].toString())
       if (response.data.listPortfolioCoins.items.length > 0) {
-        console.log('res1;', response.data);
         setUsdPortfolioCoin(response.data.listPortfolioCoins.items[0]);
-        console.log('usd12', usdPortfolioCoin)
       }
     } catch (e) {
       console.error(e);
@@ -74,10 +69,9 @@ const CoinExchangeScreen = () => {
       return;
     }
     setCoinUSDValue((amount * coin?.currentPrice).toString());
-  }, [coinAmount]);
+  }, []);
 
   useEffect(() => {
-    console.log();
     const amount = parseFloat(coinUSDValue)
     if (!amount && amount !== 0) {
       setCoinAmount("");
@@ -85,7 +79,7 @@ const CoinExchangeScreen = () => {
       return;
     }
     setCoinAmount((amount / coin?.currentPrice).toString());
-  }, [coinUSDValue]);
+  }, []);
 
   const onSellAll = () => {
     setCoinAmount(portfolioCoin.amount);
@@ -107,6 +101,7 @@ const CoinExchangeScreen = () => {
         amount: parseFloat(coinAmount),
         usdPortfolioCoinId: usdPortfolioCoin?.id,
         coinPortfolioCoinId: portfolioCoin?.id,
+        userId: theUser.id
       }
 
       const response = await API.graphql(
@@ -125,7 +120,6 @@ const CoinExchangeScreen = () => {
   }
 
   const onPlaceOrder = async () => {
-    console.log('portamount', usdPortfolioCoin?.amount);
     const maxUsd = usdPortfolioCoin?.amount || 0;
     if (isBuy && parseFloat(coinUSDValue) > maxUsd) {
       Alert.alert('Error', `Not enough USD coins. Max: ${maxUsd}`);

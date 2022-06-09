@@ -9,6 +9,7 @@ export const exchangeCoins = /* GraphQL */ `
     $amount: Float!
     $usdPortfolioCoinId: ID
     $coinPortfolioCoinId: ID
+    $userId: ID!
   ) {
     exchangeCoins(
       coinId: $coinId
@@ -16,6 +17,7 @@ export const exchangeCoins = /* GraphQL */ `
       amount: $amount
       usdPortfolioCoinId: $usdPortfolioCoinId
       coinPortfolioCoinId: $coinPortfolioCoinId
+      userId: $userId
     )
   }
 `;

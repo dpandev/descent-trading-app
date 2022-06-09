@@ -67,6 +67,5 @@ exports.handler = async (event, context) => {
   } catch (e) {
     console.log("Error", e);
   }
-
   context.done(null, event);
 }
