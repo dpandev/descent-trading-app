@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Image, StyleSheet } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { ElementView, Text, ModifiedListItemButton } from '../../components/Themed'
-import { PreciseMoney } from '../FormattedTextElements';
+import { TruncatedDecimal, PreciseMoney } from '../FormattedTextElements';
 
 export interface PortfolioCoinProps {
   portfolioCoin: {
@@ -45,12 +45,23 @@ export default function PortfolioCoin (props: PortfolioCoinProps) {
         <Image style={styles.image} source={{ uri: image }} />
         <ElementView>
           <Text style={styles.currency}>{name}</Text>
-          <Text style={styles.symbol}>{symbol}</Text>
+          <Text style={styles.symbol}>{symbol.toUpperCase()}</Text>
         </ElementView>
       </ElementView>
       <ElementView style={styles.right}>
-        <PreciseMoney value={currentPrice * amount} style={styles.value} />
-        <Text style={styles.symbol}>{amount} {symbol}</Text>
+        <PreciseMoney 
+          value={currentPrice * amount} 
+          style={styles.value} 
+          isColored={true} 
+        />
+        <Text style={styles.symbol}>
+          {symbol != 'USD'
+            ? <TruncatedDecimal value={amount} />
+            : <TruncatedDecimal value={amount} fixed={2} />
+          }
+          {' '}
+          {symbol.toUpperCase()}
+        </Text>
       </ElementView>
     </ModifiedListItemButton>
   );

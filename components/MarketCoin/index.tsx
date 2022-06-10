@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Image, StyleSheet } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { ElementView, Text, ModifiedListItemButton } from '../Themed'
-import { PercentageChange, PreciseMoney } from "../FormattedTextElements"
+import { PercentageChange, PreciseMoney, TruncatedDecimal } from "../FormattedTextElements"
 
 export interface MarketCoinProps {
   marketCoin: {
@@ -45,11 +45,11 @@ export default function MarketCoin (props: MarketCoinProps) {
         <Image style={styles.image} source={{ uri: image }} />
         <ElementView>
           <Text style={styles.name}>{name}</Text>
-          <Text style={styles.symbol}>{symbol}</Text>
+          <Text style={styles.symbol}>{symbol.toUpperCase()}</Text>
         </ElementView>
       </ElementView>
       <ElementView style={{alignItems: 'flex-end'}}>
-        <PreciseMoney value={currentPrice} style={styles.value} />
+        <TruncatedDecimal value={currentPrice} style={styles.value} isMoney={true} />
         <PercentageChange value={valueChange24H} />
       </ElementView>
     </ModifiedListItemButton>

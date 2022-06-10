@@ -4,6 +4,9 @@ import { StyleSheet } from 'react-native'
 
 interface Props {
   value: any,
+  isMoney?: boolean,
+  isColored?: boolean,
+  fixed?: number,
   style?: object,
 }
 
@@ -37,6 +40,23 @@ const abbreviateNumber = (num: any, fixed: any) => {
   return e
 }
 
+const getNumberOfZerosInDecimal = (num: any) => {
+  if (num > 0.0 && num < 1.0) {
+    return 1
+  }
+  let c = 0
+  while (!~~num) {
+    c++
+    num *= 10
+  }
+  return c - 1
+}
+
+const abbreviateDecimal = (num: any, fixed?: number) => {
+  const x = fixed || getNumberOfZerosInDecimal(num) + 7
+  return parseFloat(num.toFixed(x))
+}
+
 export function AbbreviateNum({ value, style = {} }: Props) {
   return (
     <Text style={[style, styles.green]}>
@@ -48,7 +68,7 @@ export function AbbreviateNum({ value, style = {} }: Props) {
 export function Networth({ value, style = {} }: Props ) {
   return (
     <Text style={[style, value > 0 ? styles.green : styles.red]}>
-      {value > 0 ? '$' : '-$'}
+      {value >= 0 ? '$' : '-$'}
       {abbreviateNumber(value, 0)}
     </Text>
   )
@@ -57,15 +77,16 @@ export function Networth({ value, style = {} }: Props ) {
 export function PercentageChange({ value, style = {} }: Props ) {
   return (
     <Text style={[style, value > 0 ? styles.green : styles.red, {fontWeight: 'bold'}]}>
-      {value > 0 && '+'}{value}%
+      {value >= 0 && '+'}{value.toFixed(3)}%
     </Text>
   )
 }
 
-export function PreciseMoney({ value, style = {} }: Props ) {
+export function PreciseMoney({ value, style = {}, isColored }: Props ) {
+  const redGreenExp = value >= 0 ? styles.green : styles.red
   return (
-    <Text style={[style]}>
-      {value > 0 ? '$' : '-$'}
+    <Text style={[isColored ? redGreenExp : {}, style]}>
+      {value >= 0 ? '$' : '-$'}
       {value.toLocaleString('en-US')}
     </Text>
   )
@@ -75,6 +96,18 @@ export function ShortDate({ value, style = {} }: Props) {
   return (
     <Text style={[styles.green, style]}>
       {shortenDate(value)}
+    </Text>
+  )
+}
+
+export function TruncatedDecimal({ value, style = {}, isMoney, isColored, fixed }: Props) {
+  const newValue = abbreviateDecimal(value, fixed)
+  const moneyExp = newValue >= 0 ? '$' : '-$'
+  const redGreenExp = newValue >= 0 ? styles.green : styles.red
+  return (
+    <Text style={[isColored ? redGreenExp : {}, style]}>
+      {isMoney ? moneyExp : ''}
+      {newValue.toLocaleString('en-US')}
     </Text>
   )
 }
