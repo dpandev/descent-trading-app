@@ -1,12 +1,13 @@
 import { StyleSheet, Image } from 'react-native'
 import React, { useState } from 'react'
 import { View, Text, ModifiedButtonInverted } from '../../components/Themed'
-import { AbbreviateNum, Networth } from '../../components/FormattedTextElements'
+import { AbbreviateNum, Networth, ShortDate } from '../../components/FormattedTextElements'
 import { useNavigation } from '@react-navigation/native'
 
 export default function ProfileScreen({user}: any) {
   const navigation = useNavigation()
   const [settingsActive, setSettingsActive] = useState(false)
+  console.log('profileUser', user)
 
   const onSettingsPressed = () => {
     navigation.navigate('Settings')
@@ -30,23 +31,14 @@ export default function ProfileScreen({user}: any) {
           <Text style={styles.profileText}>
             Total Trades: {''}
             <AbbreviateNum value={user?.totalTrades} style={styles.profileTextData}/>
-            {/* <Text style={styles.profileTextData}>{user?.totalTrades.toLocaleString('en-US')}</Text> */}
-          </Text>
-          <Text style={styles.profileText}>
-            Last Trade: {''}
-            <Text style={styles.profileTextData}>
-              {/* {user?.lastTrade?.tradePair[0]}{' - '}{user?.lastTrade?.tradePair[1]} */}
-            </Text>
           </Text>
           <Text style={styles.profileText}>
             Followers: {''}
             {/* <AbbreviateNum value={user?.followers.length} style={styles.profileTextData}/> */}
             {/* <Text style={styles.profileTextData}>{user?.followers?.length.toLocaleString('en-US')}</Text> */}
           </Text>
-          <Text style={styles.profileText}>
-            Member Since: {''}
-            {/* <Text style={styles.profileTextData}>{user?.createdAt}</Text> */}
-          </Text>
+          <Text style={styles.profileText}>Member Since:</Text>
+          <ShortDate value={user?.createdAt} />
         </View>
       </View>
       <ModifiedButtonInverted 

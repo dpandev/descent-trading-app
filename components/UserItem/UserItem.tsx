@@ -1,12 +1,14 @@
 import { View, Text, FollowButton } from '../Themed'
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Image } from 'react-native'
+import { Networth } from '../FormattedTextElements'
 
 type Props = {
   user: any,
 }
 
-export default function UserItem({ user }: Props) {
+export default function UserItem({ user }: Props) {//TODO delete, not in use?
+  const [following, setFollowing] = useState(user.following)
 
   const onFollowBtn = () => {
     console.log('clicked follow btn');
@@ -26,10 +28,11 @@ export default function UserItem({ user }: Props) {
           {user.assets > 0 ? '$' : '-$'}
           {Math.abs(user.assets).toLocaleString("en-US")}
         </Text>
+        {/* <Networth value={user.assets} /> */}
       </View>
       <View style={styles.buttonContainer}>
         <FollowButton 
-          active={true}
+          active={following}
           text={'Following'}
           onPress={() => onFollowBtn()}
         />

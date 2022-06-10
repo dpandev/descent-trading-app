@@ -2,7 +2,7 @@ import { StyleSheet, ImageBackground } from 'react-native'
 import { View, Text, ModifiedButton, ElementView } from '../../components/Themed'
 import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { Auth } from 'aws-amplify'
+import { FontAwesome5 } from '@expo/vector-icons'
 
 export default function WelcomeScreen() {
   const [activeButton, setActiveButton] = useState(false)
@@ -10,12 +10,6 @@ export default function WelcomeScreen() {
 
   const onGetStarted = () => {
     navigation.navigate('SignupScreen')
-  }
-
-  const test = async () => {
-    console.log('1', await Auth.currentAuthenticatedUser());
-    console.log('2', await Auth.currentSession());
-    console.log('3', await Auth.currentUserInfo());
   }
 
   return (
@@ -26,19 +20,20 @@ export default function WelcomeScreen() {
         style={styles.bgImage}
       >
         <ElementView style={styles.inner}>
-          <Text style={styles.title}>Welcome</Text>
+          <Text style={styles.title}>Don't lose your savings in crypto</Text>
+          <ElementView style={styles.row}>
+            <Text style={styles.title}>Lose virtual instead </Text>
+            <FontAwesome5 name={'laugh-wink'} color={'#6338F1'} size={25} />
+          </ElementView>
           <ModifiedButton 
             onPress={onGetStarted}
             text={'Get Started'}
+            textStyles={styles.buttonText}
             icon={'angle-right'}
             iconSize={25}
             buttonStyles={styles.button}
             activePress={activeButton}
             onPressChange={setActiveButton}
-          />
-          <ModifiedButton 
-            onPress={test}
-            text='test'
           />
         </ElementView>
       </ImageBackground>
@@ -52,7 +47,6 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    // backgroundColor: 'red',
   },
   bgImage: {
     flex: 1,
@@ -63,18 +57,27 @@ const styles = StyleSheet.create({
   inner: {
     padding: 25,
     flex: 1,
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     alignItems: 'center',
   },
   title: {
-    marginTop: '50%',
-    fontSize: 38,
+    fontFamily: 'Bradley Hand',
+    fontSize: 22,
     color: '#6338F1',
+    textAlign: 'center',
+  },
+  row: {
+    flexDirection: 'row',
   },
   button: {
-    width: '60%',
+    marginTop: 100,
+    width: '100%',
+    maxWidth: 200,
     justifyContent: 'center',
     textAlign: 'center',
-    backgroundColor: 'red'
+    backgroundColor: '#6338F1'
+  },
+  buttonText: {
+    // flex: 1,
   },
 })

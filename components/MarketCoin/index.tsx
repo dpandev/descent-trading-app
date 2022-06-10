@@ -31,7 +31,6 @@ export default function MarketCoin (props: MarketCoinProps) {
   } = props;
 
   const onPressed = () => {
-    console.log('pressed market item')
     navigation.navigate('CoinDetails', { id })
   }
 

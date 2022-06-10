@@ -31,7 +31,7 @@ export default function PageHeader({ title, searchbarOptions, buttonsOptions }: 
 const styles = StyleSheet.create({
   header: {
     width: '90%',
-    marginTop: 20,
+    marginTop: 30,
     paddingHorizontal: 10,
   },
   title: {

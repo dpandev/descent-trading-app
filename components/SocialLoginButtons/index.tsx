@@ -10,7 +10,6 @@ export default function SocialLoginButtons() {
   }
 
   const onSignInGoogle = async () => {
-    // console.warn('Sign In Google')
     console.log('google signin');
     await Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Google })
   }
@@ -23,15 +22,15 @@ export default function SocialLoginButtons() {
     <>
       <SimpleColorButton 
         onPress={onSignInApple} 
-        text={"Sign In with Apple"} 
-        bgColor='#e3e3e3'
-        fgColor='#363636'
+        text={"Continue with Apple"} 
+        bgColor='#000000'
+        fgColor='#6338F1'
       />
       <SimpleColorButton 
         onPress={onSignInGoogle} 
-        text={"Sign In with Google"} 
-        bgColor='#FAE9EA'
-        fgColor='#DD4D44'
+        text={"Continue with Google"} 
+        bgColor='#000000'
+        fgColor='#6338F1'
       />
       {/* <SimpleColorButton 
         onPress={onSignInFacebook} 

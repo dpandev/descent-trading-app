@@ -1,41 +1,48 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, StyleSheet} from 'react-native';
-import { View } from '../../components/Themed';
+import { ActivityIndicator, FlatList, StyleSheet} from 'react-native';
+import { Text, View } from '../../components/Themed';
 import MarketCoin from "../../components/MarketCoin";
 import PageHeader from '../../components/PageHeader';
 import { API, graphqlOperation } from 'aws-amplify';
+import { listCoins } from '../../src/graphql/queries';
 
 import { watchlistData } from '../../assets/dummyData/watchlistData';
-
-import { listCoins } from '../../src/graphql/queries';
 
 export default function TabThreeScreen() {
   const [allCoins, setAllCoins] = useState([])
   const [watchlist, setWatchlist] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleEmptyList = () => {
+    return <Text style={styles.noDataMsg}>pull down to refresh</Text>
+  }
 
   const fetchCoins = async () => {
-    setLoading(true)
+    setIsLoading(true)
+    console.log('loading...');
     try {
       const response = await API.graphql(graphqlOperation(listCoins))
       setAllCoins(response.data.listCoins.items)
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false)
+      setIsLoading(false)
+      console.log('finished...');
     }
   }
 
   const componentsToRender = {
-    component1: 
+    component1:
       <FlatList
         style={{width: '100%'}}
         data={allCoins}
         onRefresh={fetchCoins}
-        refreshing={loading}
+        refreshing={isLoading}
         renderItem={({item}) => <MarketCoin marketCoin={item} />}
         showsVerticalScrollIndicator={false}
         ListHeaderComponentStyle={{alignItems: 'center'}}
+        ListEmptyComponent={handleEmptyList}
+        extraData={allCoins}
       />,
     component2: 
       <FlatList
@@ -50,7 +57,7 @@ export default function TabThreeScreen() {
         style={{width: '100%'}}
         data={allCoins.map(item => ({...item})).sort((a, b) => (a.valueChange24H < b.valueChange24H ? 1 : -1))}
         onRefresh={fetchCoins}
-        refreshing={loading}
+        refreshing={isLoading}
         renderItem={({item}) => <MarketCoin marketCoin={item} />}
         showsVerticalScrollIndicator={false}
         ListHeaderComponentStyle={{alignItems: 'center'}}
@@ -82,8 +89,15 @@ export default function TabThreeScreen() {
 
   useEffect(() => {
     fetchCoins()
-    console.log('refreshed allcoins')
   }, [])
+
+  useEffect(() => {//remounts component on initial render once state is updated with data
+    if (reComp.props.data.length === 0 
+      && allCoins.length != 0
+      && reComp.props.extraData != undefined) {
+      setReComp(componentsToRender.component1)
+    }
+  }, [!isLoading])
 
   return (
     <View style={styles.root}>
@@ -100,5 +114,9 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingHorizontal: 10,
     width: '100%',
+  },
+  noDataMsg: {
+    textAlign: 'center',
+    color: '#FE4A76',
   },
 });

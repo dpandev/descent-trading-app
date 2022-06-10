@@ -5,24 +5,30 @@ import { ElementView, Text, ModifiedListItemButton } from '../../components/Them
 import { PreciseMoney } from '../FormattedTextElements';
 
 export interface PortfolioCoinProps {
-  coin: {
-    image: string,
-    name: string,
-    symbol: string,
+  portfolioCoin: {
+    coin: {
+      id: string,
+      image: string,
+      name: string,
+      symbol: string,
+      currentPrice: number,
+    }
     amount: number,
-    valueUSD: number,
   }
 }
 
 export default function PortfolioCoin (props: PortfolioCoinProps) {
   const [itemActivePress, setItemActivePress] = useState(false)
   const {
-    coin: {
-      image,
-      name,
-      symbol,
+    portfolioCoin: {
       amount,
-      valueUSD,
+      coin: {
+        id,
+        image,
+        name,
+        symbol,
+        currentPrice
+      }
     },
   } = props;
 
@@ -31,19 +37,19 @@ export default function PortfolioCoin (props: PortfolioCoinProps) {
   return (
     <ModifiedListItemButton 
       buttonStyles={styles.root} 
-      onPress={() => navigation.navigate('CoinDetails')}
+      onPress={() => navigation.navigate('CoinDetails', { id })}
       activePress={itemActivePress}
       onPressChange={setItemActivePress}
     >
       <ElementView style={styles.left}>
-        <Image style={styles.image} source={{ uri: image}} />
+        <Image style={styles.image} source={{ uri: image }} />
         <ElementView>
           <Text style={styles.currency}>{name}</Text>
           <Text style={styles.symbol}>{symbol}</Text>
         </ElementView>
       </ElementView>
       <ElementView style={styles.right}>
-        <PreciseMoney value={valueUSD} style={styles.value} />
+        <PreciseMoney value={currentPrice * amount} style={styles.value} />
         <Text style={styles.symbol}>{amount} {symbol}</Text>
       </ElementView>
     </ModifiedListItemButton>

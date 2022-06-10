@@ -28,7 +28,6 @@ export default function TabFourScreen() {
   //   createdAt: 'May 2022',
   // })
   const [user, setUser] = useState(theUser)
-  console.log('tabfour', user)
   const componentsToRender = {
     component1: <ProfileScreen user={user} />,
     component2: <FollowingScreen />,
