@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Image, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react'
+import { Image, StyleSheet } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 import { ElementView, Text, ModifiedListItemButton } from '../Themed'
-import { PercentageChange, PreciseMoney } from "../FormattedTextElements";
+import { PercentageChange, PreciseMoney } from "../FormattedTextElements"
 
 export interface MarketCoinProps {
   marketCoin: {
@@ -16,7 +16,7 @@ export interface MarketCoinProps {
 }
 
 export default function MarketCoin (props: MarketCoinProps) {
-  const navigation = useNavigation();
+  const navigation = useNavigation()
   const [itemActivePress, setItemActivePress] = useState(false)
 
   const {
@@ -28,7 +28,7 @@ export default function MarketCoin (props: MarketCoinProps) {
       currentPrice,
       id
     },
-  } = props;
+  } = props
 
   const onPressed = () => {
     navigation.navigate('CoinDetails', { id })
@@ -53,8 +53,8 @@ export default function MarketCoin (props: MarketCoinProps) {
         <PercentageChange value={valueChange24H} />
       </ElementView>
     </ModifiedListItemButton>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   root: {
@@ -86,4 +86,4 @@ const styles = StyleSheet.create({
   symbol: {
     color: '#959595',
   },
-});
+})

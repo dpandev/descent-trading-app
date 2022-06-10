@@ -3,11 +3,10 @@ import { View, ElementView } from '../../components/Themed'
 import PortfolioCoin from '../../components/PortfolioCoin'
 import PageHeader from '../../components/PageHeader'
 import { PreciseMoney } from '../../components/FormattedTextElements'
-import { portfolioData } from '../../assets/dummyData/portfolioData'
 import { useContext, useState, useEffect } from 'react'
 import { AuthenticatedUserContext } from '../../navigation/AuthenticatedUserProvider'
 import { API, graphqlOperation } from 'aws-amplify'
-import { getUserPortfolio } from './queries';
+import { getUserPortfolio } from './queries'
 
 export default function TabTwoScreen() {
   const [portfolioCoins, setPortfolioCoins] = useState([])

@@ -34,7 +34,7 @@ export default function ProfileScreen({user}: any) {
           </Text>
           <Text style={styles.profileText}>
             Followers: {''}
-            {/* <AbbreviateNum value={user?.followers.length} style={styles.profileTextData}/> */}
+            <AbbreviateNum value={user?.followers?.length || 0} style={styles.profileTextData}/>
             {/* <Text style={styles.profileTextData}>{user?.followers?.length.toLocaleString('en-US')}</Text> */}
           </Text>
           <Text style={styles.profileText}>Member Since:</Text>

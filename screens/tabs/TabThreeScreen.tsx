@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { ActivityIndicator, FlatList, StyleSheet} from 'react-native';
-import { Text, View } from '../../components/Themed';
-import MarketCoin from "../../components/MarketCoin";
-import PageHeader from '../../components/PageHeader';
-import { API, graphqlOperation } from 'aws-amplify';
-import { listCoins } from '../../src/graphql/queries';
+import React, { useState, useEffect } from 'react'
+import { ActivityIndicator, FlatList, StyleSheet} from 'react-native'
+import { Text, View } from '../../components/Themed'
+import MarketCoin from "../../components/MarketCoin"
+import PageHeader from '../../components/PageHeader'
+import { API, graphqlOperation } from 'aws-amplify'
+import { listCoins } from '../../src/graphql/queries'
 
-import { watchlistData } from '../../assets/dummyData/watchlistData';
+import { watchlistData } from '../../assets/dummyData/watchlistData'
 
 export default function TabThreeScreen() {
   const [allCoins, setAllCoins] = useState([])
@@ -19,7 +19,7 @@ export default function TabThreeScreen() {
 
   const fetchCoins = async () => {
     setIsLoading(true)
-    console.log('loading...');
+    console.log('loading...')
     try {
       const response = await API.graphql(graphqlOperation(listCoins))
       setAllCoins(response.data.listCoins.items)
@@ -27,7 +27,7 @@ export default function TabThreeScreen() {
       console.log(error);
     } finally {
       setIsLoading(false)
-      console.log('finished...');
+      console.log('finished...')
     }
   }
 
@@ -104,8 +104,8 @@ export default function TabThreeScreen() {
       <PageHeader title={'Trading'} buttonsOptions={buttonOptions} searchbarOptions={searchbarOptions} />
       {reComp}
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   root: {
@@ -119,4 +119,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#FE4A76',
   },
-});
+})
