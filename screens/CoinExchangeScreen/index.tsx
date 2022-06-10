@@ -69,7 +69,7 @@ const CoinExchangeScreen = () => {
       return;
     }
     setCoinUSDValue((amount * coin?.currentPrice).toString());
-  }, []);
+  }, [coinAmount]);
 
   useEffect(() => {
     const amount = parseFloat(coinUSDValue)
@@ -79,7 +79,7 @@ const CoinExchangeScreen = () => {
       return;
     }
     setCoinAmount((amount / coin?.currentPrice).toString());
-  }, []);
+  }, [coinUSDValue]);
 
   const onSellAll = () => {
     setCoinAmount(portfolioCoin.amount);
@@ -157,7 +157,7 @@ const CoinExchangeScreen = () => {
             keyboardType="decimal-pad"
             placeholder="0"
             placeholderTextColor={'#b1b1b1'}
-            value={(Math.round(coinAmount * 100000) / 100000).toLocaleString('en-US')}
+            value={coinAmount}
             onChangeText={setCoinAmount}
           />
         </ElementView>
