@@ -13,8 +13,8 @@ const RankingsScreen = () => {
   }
 
   const fetchUsers = () => {
-    setIsLoading(true)
-    setTimeout(temp, 500)
+    // setIsLoading(true)
+    // setTimeout(temp, 500)
   }
 
   useEffect(() => {

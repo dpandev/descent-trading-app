@@ -14,7 +14,6 @@ export default function SettingsScreen() {
 
   return (
     <View style={styles.root}>
-      <Text style={styles.title}>Settings</Text>
       <ModifiedButton 
         onPress={onSignOut}
         text={'Sign out'}

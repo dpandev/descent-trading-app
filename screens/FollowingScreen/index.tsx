@@ -13,8 +13,8 @@ const FollowingScreen = () => {
   }
 
   const fetchUsers = () => {
-    setIsLoading(true)
-    setTimeout(temp, 500)
+    // setIsLoading(true)
+    // setTimeout(temp, 100)
   }
 
   useEffect(() => {

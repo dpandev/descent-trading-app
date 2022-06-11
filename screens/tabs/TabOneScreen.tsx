@@ -3,7 +3,7 @@ import { View, Text, ModifiedButton } from '../../components/Themed'
 import { RootTabScreenProps } from '../../types';
 import React, { useContext } from 'react';
 import { AuthenticatedUserContext } from '../../navigation/AuthenticatedUserProvider';
-
+const bgImage = require('../../assets/images/descentLogo.png')
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   const { theUser } = useContext(AuthenticatedUserContext)
@@ -17,12 +17,8 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
     <View style={styles.container}>
       <Image 
         style={[styles.logo, {height: height * 0.4}]}
-        source={require('../../assets/images/descentLogo.png')}
+        source={bgImage}
         resizeMode={'contain'}
-      />
-      <ModifiedButton 
-        onPress={test}
-        text='test'
       />
     </View>
   );
