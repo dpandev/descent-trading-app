@@ -63,6 +63,12 @@ exports.handler = async (event, context) => {
         context.done(null, event)
     }
     context.done(null, event)
+
+    lambda.invoke({
+        FunctionName: process.env.NETWORTH_CALCULATOR_FUNCTION,
+        InvocationType: "Event"
+    }).send();
+    context.done(null, event);
     // console.log(`EVENT: ${JSON.stringify(event)}`);
     // return {
     //     statusCode: 200,
