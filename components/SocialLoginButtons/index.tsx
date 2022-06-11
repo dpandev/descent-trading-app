@@ -1,21 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SimpleColorButton from '../SimpleColorButton'
 import { Auth } from 'aws-amplify'
 import { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth/lib/types";
 
 export default function SocialLoginButtons() {
+  const [active1, setActive1] = useState(false)
+  const [active2, setActive2] = useState(false)
 
-  const onSignInApple = () => {
-    console.warn('Sign In Apple')
+  const onSignInApple = async () => {
+    await Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Apple })
   }
 
   const onSignInGoogle = async () => {
-    console.log('google signin');
     await Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Google })
   }
 
   const onSignInFacebook = () => {
-    console.warn('Sign In Facebook')
+    Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Facebook })
   }
 
   return (
@@ -23,14 +24,14 @@ export default function SocialLoginButtons() {
       <SimpleColorButton 
         onPress={onSignInApple} 
         text={"Continue with Apple"} 
-        bgColor='#000000'
-        fgColor='#6338F1'
+        activePress={active1}
+        onActivePress={setActive1}
       />
       <SimpleColorButton 
         onPress={onSignInGoogle} 
         text={"Continue with Google"} 
-        bgColor='#000000'
-        fgColor='#6338F1'
+        activePress={active2}
+        onActivePress={setActive2}
       />
       {/* <SimpleColorButton 
         onPress={onSignInFacebook} 

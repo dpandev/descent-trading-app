@@ -5,29 +5,22 @@ interface SimpleColorButtonProps {
   disabled?: boolean,
   onPress: any,
   text: string,
-  type?: string,
   bgColor?: string,
   fgColor?: string,
+  activePress?: boolean,
+  onActivePress?: Function,
 }
 
-export default function SimpleColorButton({ disabled, onPress, text, type='PRIMARY', bgColor, fgColor }: SimpleColorButtonProps) {
+export default function SimpleColorButton({ disabled, onPress, text, activePress, onActivePress }: SimpleColorButtonProps) {
   return (
     <Pressable 
       disabled={disabled}
       onPress={onPress} 
-      style={[
-        styles.container, 
-        // @ts-ignore
-        styles[`container_${type}`],
-        bgColor ? {backgroundColor: bgColor} : {},
-      ]}>
+      onPressIn={() => onActivePress?.(true)}
+      onPressOut={() => onActivePress?.(false)}
+      style={styles.container}>
       <Text 
-        style={[
-          styles.text, 
-          // @ts-ignore
-          styles[`text_${type}`],
-          fgColor ? {color: fgColor} : {},
-        ]}>
+        style={[styles.text, activePress ? {color: "#fff"} : {}]}>
           {text}
       </Text>
     </Pressable>
@@ -43,31 +36,13 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     borderRadius: 5,
     alignItems: 'center',
-  },
-  container_PRIMARY: {
     backgroundColor: 'black',
   },
-  container_SECONDARY: {
-    borderColor: 'black',
-    borderWidth: 2,
-  },
-  container_TERTIARY: {},
-  container_QUADRARY: {},
   text: {
-    color: 'white',
+    color: '#6338F1',
     fontWeight: 'bold',
     letterSpacing: 0.35,
     fontSize: 18,
     textAlign: 'center',
-  },
-  text_SECONDARY: {
-    color: 'black',
-  },
-  text_TERTIARY: {
-    color: 'grey',
-    fontSize: 17,
-  },
-  text_QUADRARY: {
-    color: 'tomato',
   },
 })

@@ -1,5 +1,5 @@
 import { StyleSheet, ImageBackground } from 'react-native'
-import { View, Text, ModifiedButton, ElementView } from '../../components/Themed'
+import { View, Text, ElementView, ModifiedButtonInverted } from '../../components/Themed'
 import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { FontAwesome5 } from '@expo/vector-icons'
@@ -25,7 +25,7 @@ export default function WelcomeScreen() {
             <Text style={styles.title}>Lose virtual instead </Text>
             <FontAwesome5 name={'laugh-wink'} color={'#6338F1'} size={25} />
           </ElementView>
-          <ModifiedButton 
+          <ModifiedButtonInverted 
             onPress={onGetStarted}
             text={'Get Started'}
             textStyles={styles.buttonText}
@@ -73,9 +73,8 @@ const styles = StyleSheet.create({
     marginTop: 100,
     width: '100%',
     maxWidth: 200,
-    justifyContent: 'center',
-    textAlign: 'center',
-    backgroundColor: '#6338F1'
+    justifyContent: 'space-between',
+    flexDirection: 'row',
   },
   buttonText: {
     // flex: 1,

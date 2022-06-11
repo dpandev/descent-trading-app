@@ -1,6 +1,6 @@
 import { StyleSheet, Image, KeyboardAvoidingView, Platform } from 'react-native'
 import React, { useState } from 'react'
-import { View, ElementView, Text, ModifiedButton } from '../../components/Themed'
+import { View, ElementView, Text, ModifiedButton, ScrollView } from '../../components/Themed'
 import CustomInput from '../../components/CustomInput'
 import { useNavigation } from '@react-navigation/native'
 import SocialLoginButtons from '../../components/SocialLoginButtons'
@@ -25,67 +25,69 @@ export default function SignupScreen() {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}
       >
-        <View style={styles.root}>
-          <Text style={[styles.title, styles.lightColor]}>Create an account</Text>
-          <ElementView style={styles.form}>
-            <CustomInput 
-              label={'E-Mail'}
-              labelStyles={styles.purpleColor}
-              value={email}
-              setValue={setEmail}
-              placeholder={'yourname@example.com'}
-              placeholderTextColor={styles.lightColor.color}
-              textContentType={'emailAddress'}
-              keyboardAppearance={'dark'}
-              componentStyles={styles.inputContainer}
-              selectionColor={styles.purpleColor.color}
-            />
-            <CustomInput 
-              label={'Password'}
-              labelStyles={styles.purpleColor}
-              value={password}
-              setValue={setPassword}
-              secureTextEntry={true}
-              placeholder={'yourpassword'}
-              placeholderTextColor={styles.lightColor.color}
-              textContentType={'password'}
-              keyboardAppearance={'dark'}
-              componentStyles={styles.inputContainer}
-              selectionColor={styles.purpleColor.color}
-            />
-            <CustomInput 
-              label={'Confirm Password'}
-              labelStyles={styles.purpleColor}
-              value={confirmPassword}
-              setValue={setConfirmPassword}
-              secureTextEntry={true}
-              placeholder={'confirmpassword'}
-              placeholderTextColor={styles.lightColor.color}
-              textContentType={'password'}
-              keyboardAppearance={'dark'}
-              componentStyles={styles.inputContainer}
-              selectionColor={styles.purpleColor.color}
-            />
-            <ModifiedButton 
-              onPress={onPressSignup}
-              text={'Sign up'}
-              textStyles={styles.lightColor}
-              buttonStyles={styles.signupBtn}
-              activePress={activeButton}
-              onPressChange={setActiveButton}
-            />
-            <SocialLoginButtons />
-            <Text style={[styles.signinLabel, styles.lightColor]}>Already have an account?</Text>
-            <ModifiedButton 
-              onPress={onPressSignin}
-              text={'Sign in'}
-              buttonStyles={styles.signinBtn}
-              textStyles={styles.signinBtnText}
-              icon={'angle-right'}
-              iconSize={25}
-            />
-          </ElementView>
-        </View>
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{marginTop: 50}}>
+          <View style={styles.root}>
+            <Text style={[styles.title, styles.lightColor]}>Create an account</Text>
+            <ElementView style={styles.form}>
+              <CustomInput 
+                label={'E-Mail'}
+                labelStyles={styles.purpleColor}
+                value={email}
+                setValue={setEmail}
+                placeholder={'yourname@example.com'}
+                placeholderTextColor={styles.lightColor.color}
+                textContentType={'emailAddress'}
+                keyboardAppearance={'dark'}
+                componentStyles={styles.inputContainer}
+                selectionColor={styles.purpleColor.color}
+              />
+              <CustomInput 
+                label={'Password'}
+                labelStyles={styles.purpleColor}
+                value={password}
+                setValue={setPassword}
+                secureTextEntry={true}
+                placeholder={'yourpassword'}
+                placeholderTextColor={styles.lightColor.color}
+                textContentType={'password'}
+                keyboardAppearance={'dark'}
+                componentStyles={styles.inputContainer}
+                selectionColor={styles.purpleColor.color}
+              />
+              <CustomInput 
+                label={'Confirm Password'}
+                labelStyles={styles.purpleColor}
+                value={confirmPassword}
+                setValue={setConfirmPassword}
+                secureTextEntry={true}
+                placeholder={'confirmpassword'}
+                placeholderTextColor={styles.lightColor.color}
+                textContentType={'password'}
+                keyboardAppearance={'dark'}
+                componentStyles={styles.inputContainer}
+                selectionColor={styles.purpleColor.color}
+              />
+              <ModifiedButton 
+                onPress={onPressSignup}
+                text={'Sign up'}
+                textStyles={styles.lightColor}
+                buttonStyles={styles.signupBtn}
+                activePress={activeButton}
+                onPressChange={setActiveButton}
+              />
+              <SocialLoginButtons />
+              <Text style={[styles.signinLabel, styles.lightColor]}>Already have an account?</Text>
+              <ModifiedButton 
+                onPress={onPressSignin}
+                text={'Sign in'}
+                buttonStyles={styles.signinBtn}
+                textStyles={styles.signinBtnText}
+                icon={'angle-right'}
+                iconSize={25}
+              />
+            </ElementView>
+          </View>
+        </ScrollView>
     </KeyboardAvoidingView>
   )
 }

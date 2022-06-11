@@ -1,4 +1,5 @@
 import { FontAwesome } from '@expo/vector-icons';
+import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
@@ -11,6 +12,12 @@ export default function useCachedResources() {
     async function loadResourcesAndDataAsync() {
       try {
         SplashScreen.preventAutoHideAsync();
+
+        const images = [
+          require('../assets/images/splash.png')
+        ]
+
+        await Asset.loadAsync(images);
 
         // Load fonts
         await Font.loadAsync({

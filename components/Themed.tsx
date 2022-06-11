@@ -157,11 +157,12 @@ export function ModifiedListItemButton(props: ModifiedListItemButtonProps) {
 }
 
 export function ModifiedButtonInverted(props: ModifiedButtonProps) {
-  const { activePress, active, textStyles, buttonStyles, lightColor, darkColor, ...otherProps } = props;
+  const { icon, iconColor, activePress, active, textStyles, buttonStyles, lightColor, darkColor, ...otherProps } = props;
   const txtStyle = { 
     color: useThemeColor({ light: lightColor, dark: darkColor }, 'text'),
     fontWeight: 'bold',
     letterSpacing: 0.45,
+    marginRight: icon ? 15 : 0,
     ...(textStyles ? textStyles : {}) 
   }
   const btnStyle = {
@@ -180,7 +181,8 @@ export function ModifiedButtonInverted(props: ModifiedButtonProps) {
     borderWidth: 1,
     ...(buttonStyles ? buttonStyles : {})
   }
-  return <CustomButton active={active} textStyles={txtStyle} buttonStyles={btnStyle} {...otherProps} />
+  const iColor = txtStyle.color
+  return <CustomButton active={active} textStyles={txtStyle} buttonStyles={btnStyle} iconColor={iColor} icon={icon} {...otherProps} />
 }
 
 export function ModifiedInput(props: ModifiedInput) {
