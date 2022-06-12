@@ -6,6 +6,7 @@
 const https = require('https')
 const aws = require('aws-sdk')
 const ddb = new aws.DynamoDB()
+const lambda = new aws.Lambda();
 
 const URL = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&ids=bitcoin%2Cethereum%2Cbinancecoin%2Ccardano%2Cripple%2Cdogecoin%2Csolana%2Cpolkadot%2Cmonero%2Cdai%2Cethereum-classic%2Cchainlink%2Clitecoin%2Cstellar%2Ccronos%2Cvechain%2Cflow%2Calgorand%2Ctezos%2Cdecentraland%2Capecoin%2Cbitcoin-cash%2Caave%2Czcash%2Cdigibyte%2Cvethor-token%2Cneo%2Cmatic-network%2Ciexec-rlc%2Corchid-protocol%2Comisego%2Cbasic-attention-token%2Cfilecoin%2Cthe-sandbox%2Cshiba-inu%2Cwrapped-bitcoin%2Ceos%2Cdash%2Cgala%2Cbancor%2Cmedibloc%2Ccoin98%2Cbitcoin-cash-sv%2Cmaker%2Caxie-infinity%2Chelium%2Ctheta-token%2Cuniswap%2Cnear%2Cavalanche-wormhole%2Cbitcoin-gold&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d'
 
