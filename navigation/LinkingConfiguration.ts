@@ -32,11 +32,12 @@ const linking: LinkingOptions<RootStackParamList> = {
           },
           TabFour: {
             screens: {
-              TabFourScreen: 'three',
+              TabFourScreen: 'four',
             },
           },
         },
       },
+      Settings: 'settings',
       Modal: 'modal',
       NotFound: '*',
     },
